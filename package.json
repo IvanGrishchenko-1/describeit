@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -14,6 +15,7 @@
     "@mantine/core": "^6.0.6",
     "@mantine/hooks": "^6.0.6",
     "@mantine/next": "^6.0.6",
+    "@next/bundle-analyzer": "^13.3.0",
     "@tabler/icons": "^2.15.0",
     "@tabler/icons-react": "^2.15.0",
     "@types/node": "18.15.11",
