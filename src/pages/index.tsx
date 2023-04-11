@@ -1,5 +1,3 @@
-import { NextPage } from 'next';
-
-const Home: NextPage = () => <h1>Hello</h1>;
-
-export default Home;
+export default function HomePage(): JSX.Element {
+  return <h1>Hello</h1>;
+}
