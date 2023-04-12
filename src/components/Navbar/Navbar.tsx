@@ -1,7 +1,6 @@
 import {
   ActionIcon,
   Box,
-  Button,
   createStyles,
   Group,
   Header,
@@ -11,7 +10,12 @@ import {
 import { useMediaQuery } from '@mantine/hooks';
 import { IconMenu2, IconMoonStars, IconSun } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
-import React, { Fragment } from 'react';
+import React, { memo } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+
+import { auth } from '../../firebase/ClientApp';
+import { AuthButtons } from './AuthButtons/AuthButtons';
+import { UserMenu } from './UserMenu/UserMenu';
 
 const useStyles = createStyles(theme => ({
   title: {
@@ -39,18 +43,23 @@ const useStyles = createStyles(theme => ({
   },
 }));
 
-export const Navbar: React.FC = () => {
+const NavbarComponent: React.FC = () => {
   const { classes } = useStyles();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  const matchesMobile = useMediaQuery('(min-width: 768px)', true, {
+  const matchesDesktop = useMediaQuery('(min-width: 768px)', true, {
     getInitialValueInEffect: false,
   });
+  const [user] = useAuthState(auth);
 
   return (
     <Box pb={120}>
       <Header height={60} px="md" fixed>
         <Group position="apart" sx={{ height: '100%' }}>
-          <Group position="center" sx={{ height: '100%' }}>
+          <Group
+            position="center"
+            sx={{ height: '100%' }}
+            spacing={matchesDesktop ? 'xl' : 'sm'}
+          >
             <ActionIcon
               size="lg"
               className={classes.actionIcon && classes.hiddenDesktop}
@@ -58,14 +67,18 @@ export const Navbar: React.FC = () => {
               <IconMenu2 size={20} stroke={1.5} />
             </ActionIcon>
             <Title
-              order={matchesMobile ? 1 : 3}
+              order={matchesDesktop ? 1 : 4}
               variant="gradient"
               className={classes.title}
             >
               Describeit.
             </Title>
           </Group>
-          <Group position="center" sx={{ height: '100%' }} spacing="xl">
+          <Group
+            position="center"
+            sx={{ height: '100%' }}
+            spacing={matchesDesktop ? 'xl' : 'sm'}
+          >
             <ActionIcon
               component={motion.button}
               size="lg"
@@ -82,35 +95,10 @@ export const Navbar: React.FC = () => {
                 <IconMoonStars size={20} stroke={1.5} />
               )}
             </ActionIcon>
-            {matchesMobile ? (
-              <Fragment>
-                <Button
-                  component={motion.button}
-                  size="sm"
-                  variant="gradient"
-                  gradient={
-                    colorScheme === 'dark'
-                      ? { from: 'orange', to: 'red', deg: 45 }
-                      : { from: 'indigo', to: 'cyan', deg: 45 }
-                  }
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  Log In
-                </Button>
-                <Button
-                  component={motion.button}
-                  size="sm"
-                  variant="outline"
-                  color={colorScheme === 'dark' ? 'orange' : 'indigo'}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  Sign Up
-                </Button>
-              </Fragment>
+            {user ? (
+              <UserMenu />
             ) : (
-              <Fragment />
+              <AuthButtons mobileClasses={classes.actionIcon} />
             )}
           </Group>
         </Group>
@@ -118,3 +106,5 @@ export const Navbar: React.FC = () => {
     </Box>
   );
 };
+
+export const Navbar = memo(NavbarComponent);
