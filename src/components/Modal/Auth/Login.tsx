@@ -6,8 +6,10 @@ import {
   Stack,
   Text,
   TextInput,
+  useMantineTheme,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { motion } from 'framer-motion';
 import React from 'react';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { useSetRecoilState } from 'recoil';
@@ -34,6 +36,7 @@ export const Login: React.FC = () => {
   });
   const [signInWithEmailAndPassword, , loading, userError] =
     useSignInWithEmailAndPassword(auth);
+  const theme = useMantineTheme();
 
   const handleOnSubmit = (): void => {
     signInWithEmailAndPassword(form.values.email, form.values.password);
@@ -86,7 +89,20 @@ export const Login: React.FC = () => {
         >
           {`Don't have an account? Register`}
         </Anchor>
-        <Button type="submit" radius="xl" loading={loading}>
+        <Button
+          component={motion.button}
+          type="submit"
+          radius="md"
+          loading={loading}
+          variant="gradient"
+          gradient={
+            theme.colorScheme === 'dark'
+              ? { from: 'orange', to: 'red', deg: 45 }
+              : { from: 'indigo', to: 'cyan', deg: 45 }
+          }
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
           Login
         </Button>
       </Group>

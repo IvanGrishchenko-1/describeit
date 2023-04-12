@@ -54,6 +54,7 @@ export const AuthModal: React.FC = () => {
               ? { from: 'orange', to: 'red', deg: 45 }
               : { from: 'indigo', to: 'cyan', deg: 45 }
           }
+          sx={{ cursor: 'default' }}
         >
           Welcome to Describeit.
         </Text>

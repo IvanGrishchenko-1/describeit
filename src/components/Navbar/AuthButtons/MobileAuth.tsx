@@ -1,5 +1,5 @@
-import { ActionIcon, Menu } from '@mantine/core';
-import { IconSun } from '@tabler/icons-react';
+import { ActionIcon, useMantineTheme } from '@mantine/core';
+import { IconUserPlus } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
 import React from 'react';
 import { useSetRecoilState } from 'recoil';
@@ -12,32 +12,26 @@ export type AuthProps = {
 
 export const MobileAuth: React.FC<AuthProps> = ({ mobileClasses }) => {
   const setModalState = useSetRecoilState(authModalState);
+  const theme = useMantineTheme();
 
   return (
-    <Menu
-      position="bottom-end"
-      transitionProps={{ transition: 'rotate-right', duration: 150 }}
+    <ActionIcon
+      component={motion.button}
+      size="lg"
+      className={mobileClasses}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      onClick={() => setModalState(prev => ({ ...prev, open: true }))}
     >
-      <Menu.Target>
-        <ActionIcon
-          component={motion.button}
-          size="lg"
-          className={mobileClasses}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          <IconSun size={20} stroke={1.5} />
-        </ActionIcon>
-      </Menu.Target>
-
-      <Menu.Dropdown>
-        <Menu.Item
-          onClick={() => setModalState(prev => ({ ...prev, open: true }))}
-          icon={<IconSun size={20} />}
-        >
-          Sign In/Up
-        </Menu.Item>
-      </Menu.Dropdown>
-    </Menu>
+      <IconUserPlus
+        size={20}
+        stroke={1.5}
+        color={
+          theme.colorScheme === 'dark'
+            ? theme.colors.orange[7]
+            : theme.colors.indigo[7]
+        }
+      />
+    </ActionIcon>
   );
 };

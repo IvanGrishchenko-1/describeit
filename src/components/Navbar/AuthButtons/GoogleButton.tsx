@@ -1,6 +1,7 @@
 import { Button, Text, useMantineTheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconBrandGoogle } from '@tabler/icons-react';
+import { motion } from 'framer-motion';
 import React, { Fragment } from 'react';
 import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
 
@@ -16,6 +17,7 @@ export const GoogleButton: React.FC = () => {
   return (
     <Fragment>
       <Button
+        component={motion.button}
         onClick={() => signInWithGoogle()}
         radius="md"
         leftIcon={<IconBrandGoogle />}
@@ -26,6 +28,8 @@ export const GoogleButton: React.FC = () => {
             ? { from: 'orange', to: 'red', deg: 45 }
             : { from: 'indigo', to: 'cyan', deg: 45 }
         }
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
       >
         {matchesDesktop ? 'Continue with Google' : 'With Google'}
       </Button>
