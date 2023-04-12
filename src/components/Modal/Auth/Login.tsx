@@ -32,7 +32,7 @@ export const Login: React.FC = () => {
           : null,
     },
   });
-  const [signInWithEmailAndPassword, user , loading, userError] =
+  const [signInWithEmailAndPassword, , loading, userError] =
     useSignInWithEmailAndPassword(auth);
 
   const handleOnSubmit = (): void => {
