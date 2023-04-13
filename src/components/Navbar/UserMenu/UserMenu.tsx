@@ -7,6 +7,7 @@ import {
 } from '@mantine/core';
 import { useToggle } from '@mantine/hooks';
 import { IconLanguage, IconUser } from '@tabler/icons-react';
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import React, { useEffect } from 'react';
@@ -35,7 +36,12 @@ export const UserMenu: React.FC = () => {
       closeOnItemClick={false}
     >
       <MantineMenu.Target>
-        <Avatar size="md" />
+        <Avatar
+          size="md"
+          component={motion.div}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        />
       </MantineMenu.Target>
 
       <MantineMenu.Dropdown>

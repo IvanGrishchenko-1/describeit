@@ -41,6 +41,13 @@ const useStyles = createStyles(theme => ({
       display: 'none',
     },
   },
+  header: {
+    borderBottom: `1px solid ${
+      theme.colorScheme === 'dark'
+        ? theme.colors.orange[8]
+        : theme.colors.indigo[8]
+    }`,
+  },
 }));
 
 const NavbarComponent: React.FC = () => {
@@ -52,8 +59,8 @@ const NavbarComponent: React.FC = () => {
   const [user] = useAuthState(auth);
 
   return (
-    <Box pb={120}>
-      <Header height={60} px="md" fixed>
+    <Box mb={80}>
+      <Header height={60} px="md" fixed className={classes.header}>
         <Group position="apart" sx={{ height: '100%' }}>
           <Group
             position="center"
