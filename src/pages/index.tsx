@@ -1,6 +1,7 @@
 import { GetStaticPropsContext, NextPage } from 'next';
 import { UserConfig, useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { NextSeo } from 'next-seo';
 import React, { Fragment } from 'react';
 
 export type CustomInternalizationConfig = {
@@ -20,6 +21,7 @@ const HomePage: NextPage<InternalizationStaticProps> = () => {
   const { t } = useTranslation();
   return (
     <Fragment>
+      <NextSeo title="Home page" description="Home of all content" />
       <h1>{t('home:welcome_msg')}</h1>
     </Fragment>
   );

@@ -7,6 +7,7 @@ import { getCookie, setCookie } from 'cookies-next';
 import NextApp, { AppContext, AppProps } from 'next/app';
 import Head from 'next/head';
 import { appWithTranslation } from 'next-i18next';
+import { DefaultSeo } from 'next-seo';
 import React, { ReactElement, useState } from 'react';
 import { RecoilRoot } from 'recoil';
 
@@ -30,10 +31,7 @@ function App(props: AppProps & { colorScheme: ColorScheme }): ReactElement {
   return (
     <RecoilRoot>
       <Head>
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width"
-        />
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
 
@@ -46,6 +44,22 @@ function App(props: AppProps & { colorScheme: ColorScheme }): ReactElement {
           withGlobalStyles
           withNormalizeCSS
         >
+          <DefaultSeo
+            openGraph={{
+              type: 'website',
+              url: 'https://describeit-inky.vercel.app/',
+              title: 'Open Graph Title',
+              description: 'Open Graph Description',
+              images: [
+                {
+                  url: '/logo_transparent.png',
+                  width: 1200,
+                  height: 1200,
+                  alt: 'Og Image Alt',
+                },
+              ],
+            }}
+          />
           <Layout>
             <Component {...pageProps} />
           </Layout>
