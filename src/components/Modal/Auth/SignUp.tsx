@@ -5,8 +5,9 @@ import {
   PasswordInput,
   Stack,
   Text,
-  TextInput, useMantineTheme
-} from "@mantine/core";
+  TextInput,
+  useMantineTheme,
+} from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { motion } from 'framer-motion';
 import React from 'react';

@@ -5,8 +5,11 @@ import {
   Text,
   useMantineTheme,
 } from '@mantine/core';
+import { useToggle } from '@mantine/hooks';
 import { IconLanguage, IconUser } from '@tabler/icons-react';
-import React from 'react';
+import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
+import React, { useEffect } from 'react';
 import { useSignOut } from 'react-firebase-hooks/auth';
 
 import { auth } from '../../../firebase/ClientApp';
@@ -14,6 +17,16 @@ import { auth } from '../../../firebase/ClientApp';
 export const UserMenu: React.FC = () => {
   const theme = useMantineTheme();
   const [signOut] = useSignOut(auth);
+  const [value, toggle] = useToggle();
+  const { push, pathname, asPath, query } = useRouter();
+  const { t } = useTranslation();
+
+  const pushToLocale = async (): Promise<boolean | void> =>
+    await push({ pathname, query }, asPath, { locale: value ? 'ru' : 'en' });
+
+  useEffect(() => {
+    pushToLocale().catch(error => console.error(error));
+  }, [value]);
 
   return (
     <MantineMenu
@@ -29,10 +42,11 @@ export const UserMenu: React.FC = () => {
         <MantineMenu.Item icon={<IconLanguage size={20} />}>
           <Switch
             labelPosition="left"
-            label="Language"
+            label={t('home:language')}
             onLabel="EN"
             offLabel="RU"
             size="lg"
+            onChange={() => toggle()}
             color={theme.colorScheme === 'dark' ? 'orange' : 'indigo'}
           />
         </MantineMenu.Item>
@@ -51,7 +65,7 @@ export const UserMenu: React.FC = () => {
           }
         >
           <Text size="xl" color={theme.colors.red[5]}>
-            Sign Out
+            {t('home:exit')}
           </Text>
         </MantineMenu.Item>
       </MantineMenu.Dropdown>
