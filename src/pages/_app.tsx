@@ -52,7 +52,7 @@ function App(props: AppProps & { colorScheme: ColorScheme }): ReactElement {
               description: 'Open Graph Description',
               images: [
                 {
-                  url: '/logo_transparent.png',
+                  url: 'https://res.cloudinary.com/wavesrealm/image/upload/v1681387476/logo_rwctrz.png',
                   width: 1200,
                   height: 1200,
                   alt: 'Og Image Alt',
