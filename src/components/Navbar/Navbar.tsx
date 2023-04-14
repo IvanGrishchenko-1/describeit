@@ -8,13 +8,15 @@ import {
   useMantineColorScheme,
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { IconMenu2, IconMoonStars, IconSun } from '@tabler/icons-react';
+import { IconMoonStars, IconSun } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
 import React, { memo } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { auth } from '../../firebase/ClientApp';
 import { AuthButtons } from './AuthButtons/AuthButtons';
+import { MobileMenu } from './MobileCategories/MobileMenu';
+import { MobileMenuDrawer } from './MobileCategories/MobileMenuDrawer';
 import { UserMenu } from './UserMenu/UserMenu';
 
 const useStyles = createStyles(theme => ({
@@ -35,11 +37,6 @@ const useStyles = createStyles(theme => ({
       theme.colorScheme === 'dark'
         ? theme.colors.yellow[4]
         : theme.colors.blue[6],
-  },
-  hiddenDesktop: {
-    [theme.fn.largerThan('sm')]: {
-      display: 'none',
-    },
   },
   header: {
     borderBottom: `1px solid ${
@@ -67,12 +64,7 @@ const NavbarComponent: React.FC = () => {
             sx={{ height: '100%' }}
             spacing={matchesDesktop ? 'xl' : 'sm'}
           >
-            <ActionIcon
-              size="lg"
-              className={classes.actionIcon && classes.hiddenDesktop}
-            >
-              <IconMenu2 size={20} stroke={1.5} />
-            </ActionIcon>
+            <MobileMenu actionIconClasses={classes.actionIcon} />
             <Title
               order={matchesDesktop ? 1 : 4}
               variant="gradient"
@@ -110,6 +102,7 @@ const NavbarComponent: React.FC = () => {
           </Group>
         </Group>
       </Header>
+      <MobileMenuDrawer />
     </Box>
   );
 };

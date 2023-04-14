@@ -58,7 +58,10 @@ const HomePage: NextPage<InternalizationStaticProps> = () => {
         direction="row"
         justify="flex-start"
         align="flex-start"
-        sx={{ height: '100vh' }}
+        px="md"
+        py="xl"
+        h="fit-content"
+        mb={80}
       >
         {matchesDesktop && (
           <motion.div
@@ -66,14 +69,7 @@ const HomePage: NextPage<InternalizationStaticProps> = () => {
             animate={{ x: 0, opacity: 1, transition: { delay: 0.1 } }}
             exit={{ x: -100, opacity: 0 }}
           >
-            <Stack
-              px="md"
-              py="xl"
-              align="flex-start"
-              justify="flex-start"
-              w={200}
-              h={300}
-            >
+            <Stack align="flex-start" justify="flex-start" w={200} h={300}>
               <Tabs />
             </Stack>
           </motion.div>
@@ -86,11 +82,10 @@ const HomePage: NextPage<InternalizationStaticProps> = () => {
           <Flex
             direction="row"
             align="start"
+            justify="center"
             wrap="wrap"
             w="100%"
             gap="xl"
-            px="md"
-            py="xl"
           >
             <CustomCard />
             <CustomCard />
@@ -109,7 +104,7 @@ const HomePage: NextPage<InternalizationStaticProps> = () => {
         <Pagination
           total={10}
           color={theme.colorScheme === 'dark' ? 'dark' : 'teal'}
-          size="lg"
+          size={matchesDesktop ? 'lg' : 'xs'}
           radius="md"
         />
       </Center>
