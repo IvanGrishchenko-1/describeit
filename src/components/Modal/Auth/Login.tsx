@@ -10,6 +10,7 @@ import {
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { useSetRecoilState } from 'recoil';
@@ -38,6 +39,7 @@ export const Login: React.FC = () => {
   const [signInWithEmailAndPassword, , loading, userError] =
     useSignInWithEmailAndPassword(auth);
   const theme = useMantineTheme();
+  const { t } = useTranslation();
 
   const handleOnSubmit = async (): Promise<void> => {
     const userCredential = await signInWithEmailAndPassword(
@@ -63,7 +65,7 @@ export const Login: React.FC = () => {
       <Stack>
         <TextInput
           required
-          label="Email"
+          label={t('common:email')}
           placeholder="hello@mantine.dev"
           value={form.values.email}
           onChange={event =>
@@ -75,7 +77,7 @@ export const Login: React.FC = () => {
 
         <PasswordInput
           required
-          label="Password"
+          label={t('common:password')}
           placeholder="Your password"
           value={form.values.password}
           onChange={event =>
@@ -97,7 +99,7 @@ export const Login: React.FC = () => {
           onClick={() => setModalState(prev => ({ ...prev, view: 'signup' }))}
           size="xs"
         >
-          {`Don't have an account? Register`}
+          {t("common:don't_have_account")}
         </Anchor>
         <Button
           component={motion.button}
@@ -113,7 +115,7 @@ export const Login: React.FC = () => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
-          Login
+          {t('common:log_in')}
         </Button>
       </Group>
     </form>

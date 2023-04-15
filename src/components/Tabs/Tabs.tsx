@@ -10,10 +10,10 @@ import React from 'react';
 import { Tab, TabProps } from './Tab';
 
 const tabs: TabProps[] = [
-  { value: 'anime', i18nKey: 'Anime', icon: <IconLego /> },
-  { value: 'movies', i18nKey: 'Movies', icon: <IconMovie /> },
-  { value: 'games', i18nKey: 'Games', icon: <IconDeviceGamepad /> },
-  { value: 'music', i18nKey: 'Music', icon: <IconDisc /> },
+  { value: 'anime', i18nKey: 'home:anime', icon: <IconLego /> },
+  { value: 'movies', i18nKey: 'home:movies', icon: <IconMovie /> },
+  { value: 'games', i18nKey: 'home:games', icon: <IconDeviceGamepad /> },
+  { value: 'music', i18nKey: 'home:music', icon: <IconDisc /> },
 ];
 
 export const Tabs: React.FC = () => {

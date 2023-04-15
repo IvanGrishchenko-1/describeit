@@ -67,7 +67,7 @@ export const UserMenu: React.FC = () => {
         <MantineMenu.Item icon={<IconLanguage size={20} />}>
           <Switch
             labelPosition="left"
-            label={t('home:language')}
+            label={t('common:language')}
             onLabel="EN"
             offLabel="RU"
             size="lg"
@@ -90,7 +90,7 @@ export const UserMenu: React.FC = () => {
           }
         >
           <Text size="xl" color={theme.colors.red[5]}>
-            {t('home:exit')}
+            {t('common:sign_out')}
           </Text>
         </MantineMenu.Item>
       </MantineMenu.Dropdown>

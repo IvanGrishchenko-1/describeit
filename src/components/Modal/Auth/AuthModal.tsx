@@ -6,6 +6,7 @@ import {
   Text,
   useMantineTheme,
 } from '@mantine/core';
+import { useTranslation } from 'next-i18next';
 import React, { useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useRecoilState } from 'recoil';
@@ -20,6 +21,7 @@ export const AuthModal: React.FC = () => {
   const [modalState, setModalState] = useRecoilState(authModalState);
   const theme = useMantineTheme();
   const [user] = useAuthState(auth);
+  const { t } = useTranslation();
 
   const handleClose = (): void =>
     setModalState(prev => ({ ...prev, open: false }));
@@ -56,7 +58,7 @@ export const AuthModal: React.FC = () => {
           }
           sx={{ cursor: 'default' }}
         >
-          Welcome to Describeit.
+          {`${t('common:welcome')} Describeit.`}
         </Text>
 
         <Group grow mb="md" mt="md">
@@ -64,7 +66,7 @@ export const AuthModal: React.FC = () => {
         </Group>
 
         <Divider
-          label="Or continue with email"
+          label={t('common:continue_w_email')}
           labelPosition="center"
           my="lg"
         />

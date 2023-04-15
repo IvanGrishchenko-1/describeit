@@ -3,6 +3,7 @@ import { useMediaQuery } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { IconBrandGoogle } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'next-i18next';
 import React, { Fragment } from 'react';
 import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
 
@@ -15,6 +16,7 @@ export const GoogleButton: React.FC = () => {
   const matchesDesktop = useMediaQuery('(min-width: 768px)', true, {
     getInitialValueInEffect: false,
   });
+  const { t } = useTranslation();
 
   const handleGoogleClick = async (): Promise<void> => {
     const userCredentials = await signInWithGoogle();
@@ -40,7 +42,7 @@ export const GoogleButton: React.FC = () => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
-        {matchesDesktop ? 'Continue with Google' : 'With Google'}
+        {matchesDesktop ? t('common:continue_w_google') : 'Google'}
       </Button>
       {userError && <Text color="red">{userError?.message}</Text>}
     </Fragment>

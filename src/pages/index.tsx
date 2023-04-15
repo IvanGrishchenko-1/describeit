@@ -53,7 +53,7 @@ const HomePage: NextPage<InternalizationStaticProps> = () => {
 
   return (
     <div className={classes.container}>
-      <NextSeo title="Home page" description="Home of all content" />
+      <NextSeo title="Home" description="Home of all content" />
       <Flex
         direction="row"
         justify="flex-start"
@@ -117,7 +117,10 @@ export const getStaticProps: ({
 }: GetStaticPropsContext) => Promise<InternalizationStaticProps> = async ({
   locale,
 }: GetStaticPropsContext) => {
-  const config = await serverSideTranslations(locale ?? 'en', ['home']);
+  const config = await serverSideTranslations(locale ?? 'en', [
+    'common',
+    'home',
+  ]);
   return {
     props: {
       ...config,

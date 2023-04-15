@@ -10,6 +10,7 @@ import {
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { useSetRecoilState } from 'recoil';
@@ -42,6 +43,7 @@ export const SignUp: React.FC = () => {
   const [createUserWithEmailAndPassword, , loading, userError] =
     useCreateUserWithEmailAndPassword(auth);
   const theme = useMantineTheme();
+  const { t } = useTranslation();
 
   const handleOnSubmit = async (): Promise<void> => {
     const userCredentials = await createUserWithEmailAndPassword(
@@ -62,7 +64,7 @@ export const SignUp: React.FC = () => {
     <form onSubmit={form.onSubmit(handleOnSubmit)}>
       <Stack>
         <TextInput
-          label="Name"
+          label={t('common:name')}
           placeholder="Your name"
           value={form.values.name}
           onChange={event =>
@@ -73,7 +75,7 @@ export const SignUp: React.FC = () => {
 
         <TextInput
           required
-          label="Email"
+          label={t('common:email')}
           placeholder="hello@mantine.dev"
           value={form.values.email}
           onChange={event =>
@@ -85,7 +87,7 @@ export const SignUp: React.FC = () => {
 
         <PasswordInput
           required
-          label="Password"
+          label={t('common:password')}
           placeholder="Your password"
           value={form.values.password}
           onChange={event =>
@@ -100,7 +102,7 @@ export const SignUp: React.FC = () => {
 
         <PasswordInput
           required
-          label="Confirm password"
+          label={t('common:confirm_password')}
           placeholder="Confirm password"
           value={form.values.confirmPassword}
           onChange={event =>
@@ -119,7 +121,7 @@ export const SignUp: React.FC = () => {
           onClick={() => setModalState(prev => ({ ...prev, view: 'login' }))}
           size="xs"
         >
-          Already have an account? Login
+          {t('common:have_an_account')}
         </Anchor>
         <Button
           component={motion.button}
@@ -135,7 +137,7 @@ export const SignUp: React.FC = () => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
-          Register
+          {t('common:register')}
         </Button>
       </Group>
     </form>

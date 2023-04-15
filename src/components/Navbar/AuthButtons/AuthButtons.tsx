@@ -1,6 +1,7 @@
 import { Button, useMantineColorScheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'next-i18next';
 import React, { Fragment } from 'react';
 import { useSetRecoilState } from 'recoil';
 
@@ -14,6 +15,7 @@ export const AuthButtons: React.FC<AuthProps> = ({ mobileClasses }) => {
   const matchesDesktop = useMediaQuery('(min-width: 768px)', true, {
     getInitialValueInEffect: false,
   });
+  const { t } = useTranslation();
 
   return (
     <Fragment>
@@ -33,7 +35,7 @@ export const AuthButtons: React.FC<AuthProps> = ({ mobileClasses }) => {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
-            Log In
+            {t('common:log_in')}
           </Button>
           <Button
             onClick={() => setAuthModalState({ open: true, view: 'signup' })}
@@ -44,7 +46,7 @@ export const AuthButtons: React.FC<AuthProps> = ({ mobileClasses }) => {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
-            Sign Up
+            {t('common:sign_up')}
           </Button>
         </Fragment>
       ) : (
