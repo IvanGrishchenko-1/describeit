@@ -13,7 +13,7 @@ export const MobileMenuDrawer: React.FC = () => {
       opened={openMenu}
       onClose={() => setOpenMenu(false)}
       overlayProps={{ opacity: 0.5, blur: 4 }}
-      size="xs"
+      size={210}
       transitionProps={{ transition: 'rotate-right', duration: 150 }}
     >
       <Group w="100%" py="xl" px="md">

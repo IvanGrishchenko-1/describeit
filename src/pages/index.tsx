@@ -104,7 +104,7 @@ const HomePage: NextPage<InternalizationStaticProps> = () => {
         <Pagination
           total={10}
           color={theme.colorScheme === 'dark' ? 'dark' : 'teal'}
-          size={matchesDesktop ? 'lg' : 'xs'}
+          size={matchesDesktop ? 'lg' : 'md'}
           radius="md"
         />
       </Center>
