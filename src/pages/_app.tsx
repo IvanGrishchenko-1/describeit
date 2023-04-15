@@ -3,6 +3,7 @@ import {
   ColorSchemeProvider,
   MantineProvider,
 } from '@mantine/core';
+import { Notifications } from '@mantine/notifications';
 import { getCookie, setCookie } from 'cookies-next';
 import NextApp, { AppContext, AppProps } from 'next/app';
 import Head from 'next/head';
@@ -44,6 +45,7 @@ function App(props: AppProps & { colorScheme: ColorScheme }): ReactElement {
           withGlobalStyles
           withNormalizeCSS
         >
+          <Notifications />
           <DefaultSeo
             openGraph={{
               type: 'website',

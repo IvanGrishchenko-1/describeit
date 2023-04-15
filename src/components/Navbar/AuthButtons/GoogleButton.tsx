@@ -1,24 +1,33 @@
 import { Button, Text, useMantineTheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
+import { notifications } from '@mantine/notifications';
 import { IconBrandGoogle } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
 import React, { Fragment } from 'react';
 import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
 
 import { auth } from '../../../firebase/ClientApp';
+import { error, success } from '../../Notifications/Notifications';
 
 export const GoogleButton: React.FC = () => {
   const theme = useMantineTheme();
-  const [signInWithGoogle, , loading, error] = useSignInWithGoogle(auth);
+  const [signInWithGoogle, , loading, userError] = useSignInWithGoogle(auth);
   const matchesDesktop = useMediaQuery('(min-width: 768px)', true, {
     getInitialValueInEffect: false,
   });
+
+  const handleGoogleClick = async (): Promise<void> => {
+    const userCredentials = await signInWithGoogle();
+    userCredentials
+      ? notifications.show({ title: 'Success', message: 'Success', ...success })
+      : notifications.show({ title: 'Error', message: 'Error', ...error });
+  };
 
   return (
     <Fragment>
       <Button
         component={motion.button}
-        onClick={() => signInWithGoogle()}
+        onClick={handleGoogleClick}
         radius="md"
         leftIcon={<IconBrandGoogle />}
         variant="gradient"
@@ -33,7 +42,7 @@ export const GoogleButton: React.FC = () => {
       >
         {matchesDesktop ? 'Continue with Google' : 'With Google'}
       </Button>
-      {error && <Text color="red">{error.message}</Text>}
+      {userError && <Text color="red">{userError?.message}</Text>}
     </Fragment>
   );
 };

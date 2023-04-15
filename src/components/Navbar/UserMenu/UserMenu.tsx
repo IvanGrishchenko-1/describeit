@@ -6,6 +6,7 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { useToggle } from '@mantine/hooks';
+import { notifications } from '@mantine/notifications';
 import { IconLanguage, IconUser } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
@@ -14,6 +15,7 @@ import React, { useEffect } from 'react';
 import { useSignOut } from 'react-firebase-hooks/auth';
 
 import { auth } from '../../../firebase/ClientApp';
+import { error, success } from '../../Notifications/Notifications';
 
 export const UserMenu: React.FC = () => {
   const theme = useMantineTheme();
@@ -21,6 +23,23 @@ export const UserMenu: React.FC = () => {
   const [value, toggle] = useToggle();
   const { push, pathname, asPath, query } = useRouter();
   const { t } = useTranslation();
+
+  const handleSignOut = (): Promise<void> =>
+    signOut()
+      .then(() =>
+        notifications.show({
+          title: 'Success',
+          message: 'You logged out',
+          ...success,
+        }),
+      )
+      .catch(() =>
+        notifications.show({
+          title: '...Oops, something went wrong',
+          message: 'Try again later',
+          ...error,
+        }),
+      );
 
   const pushToLocale = async (): Promise<boolean | void> =>
     await push({ pathname, query }, asPath, { locale: value ? 'ru' : 'en' });
@@ -60,7 +79,7 @@ export const UserMenu: React.FC = () => {
         <MantineMenu.Divider />
 
         <MantineMenu.Item
-          onClick={() => signOut()}
+          onClick={handleSignOut}
           closeMenuOnClick
           icon={
             <IconUser
