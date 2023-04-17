@@ -1,20 +1,23 @@
-import { createGetInitialProps } from '@mantine/next';
-import Document, { Head, Html, Main, NextScript } from 'next/document';
+import { createStylesServer, ServerStyles } from '@mantine/next';
+import Document, { DocumentContext } from 'next/document';
 
-const getInitialProps = createGetInitialProps();
+import { rtlCache } from '../../rtl-cache';
+
+const stylesServer = createStylesServer(rtlCache);
 
 export default class _Document extends Document {
-  static getInitialProps = getInitialProps;
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+  static async getInitialProps(ctx: DocumentContext) {
+    const initialProps = await Document.getInitialProps(ctx);
 
-  render(): JSX.Element {
-    return (
-      <Html lang="en">
-        <Head />
-        <body>
-          <Main />
-          <NextScript />
-        </body>
-      </Html>
-    );
+    return {
+      ...initialProps,
+      styles: (
+        <>
+          {initialProps.styles}
+          <ServerStyles html={initialProps.html} server={stylesServer} />
+        </>
+      ),
+    };
   }
 }

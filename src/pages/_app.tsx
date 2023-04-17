@@ -5,13 +5,15 @@ import {
 } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
 import { getCookie, setCookie } from 'cookies-next';
-import NextApp, { AppContext, AppProps } from 'next/app';
+import { GetServerSidePropsContext } from 'next';
+import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { appWithTranslation } from 'next-i18next';
 import { DefaultSeo } from 'next-seo';
 import React, { ReactElement, useState } from 'react';
 import { RecoilRoot } from 'recoil';
 
+import { rtlCache } from '../../rtl-cache';
 import { Layout } from '../components/Layout';
 
 function App(props: AppProps & { colorScheme: ColorScheme }): ReactElement {
@@ -36,32 +38,34 @@ function App(props: AppProps & { colorScheme: ColorScheme }): ReactElement {
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
 
+      <DefaultSeo
+        openGraph={{
+          type: 'website',
+          url: 'https://describeit-inky.vercel.app/',
+          title: 'Open Graph Title',
+          description: 'Open Graph Description',
+          images: [
+            {
+              url: 'https://res.cloudinary.com/wavesrealm/image/upload/v1681387476/logo_rwctrz.png',
+              width: 1200,
+              height: 1200,
+              alt: 'Og Image Alt',
+            },
+          ],
+        }}
+      />
+
       <ColorSchemeProvider
         colorScheme={colorScheme}
         toggleColorScheme={toggleColorScheme}
       >
         <MantineProvider
-          theme={{ colorScheme }}
           withGlobalStyles
           withNormalizeCSS
+          theme={{ colorScheme, dir: 'rtl' }}
+          emotionCache={rtlCache}
         >
           <Notifications />
-          <DefaultSeo
-            openGraph={{
-              type: 'website',
-              url: 'https://describeit-inky.vercel.app/',
-              title: 'Open Graph Title',
-              description: 'Open Graph Description',
-              images: [
-                {
-                  url: 'https://res.cloudinary.com/wavesrealm/image/upload/v1681387476/logo_rwctrz.png',
-                  width: 1200,
-                  height: 1200,
-                  alt: 'Og Image Alt',
-                },
-              ],
-            }}
-          />
           <Layout>
             <Component {...pageProps} />
           </Layout>
@@ -71,12 +75,8 @@ function App(props: AppProps & { colorScheme: ColorScheme }): ReactElement {
   );
 }
 
-App.getInitialProps = async (appContext: AppContext) => {
-  const appProps = await NextApp.getInitialProps(appContext);
-  return {
-    ...appProps,
-    colorScheme: getCookie('mantine-color-scheme', appContext.ctx) || 'dark',
-  };
-};
+App.getInitialProps = ({ ctx }: { ctx: GetServerSidePropsContext }) => ({
+  colorScheme: getCookie('mantine-color-scheme', ctx) || 'light',
+});
 
 export default appWithTranslation(App);
