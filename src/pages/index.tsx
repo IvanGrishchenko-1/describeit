@@ -32,6 +32,7 @@ export interface InternalizationStaticProps {
 
 const useStyles = createStyles(theme => ({
   container: {
+    marginTop: 80,
     aspectRatio: '960/300',
     width: '100%',
     backgroundRepeat: 'no-repeat',

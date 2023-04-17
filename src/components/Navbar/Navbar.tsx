@@ -10,7 +10,7 @@ import {
 import { useMediaQuery } from '@mantine/hooks';
 import { IconMoonStars, IconSun } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
-import React, { memo } from 'react';
+import React, { Fragment, memo } from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { auth } from '../../firebase/ClientApp';
@@ -56,7 +56,7 @@ const NavbarComponent: React.FC = () => {
   const [user] = useAuthState(auth);
 
   return (
-    <Box mb={80}>
+    <Fragment>
       <Header height={60} px="md" fixed className={classes.header}>
         <Group position="apart" sx={{ height: '100%' }}>
           <Group
@@ -103,7 +103,7 @@ const NavbarComponent: React.FC = () => {
         </Group>
       </Header>
       <MobileMenuDrawer />
-    </Box>
+    </Fragment>
   );
 };
 
