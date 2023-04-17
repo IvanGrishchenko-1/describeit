@@ -1,6 +1,5 @@
 import {
   ActionIcon,
-  Box,
   createStyles,
   Group,
   Header,
@@ -10,7 +9,7 @@ import {
 import { useMediaQuery } from '@mantine/hooks';
 import { IconMoonStars, IconSun } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
-import React, { Fragment, memo } from "react";
+import React, { Fragment, memo } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { auth } from '../../firebase/ClientApp';
