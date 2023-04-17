@@ -28,8 +28,8 @@ export const UserMenu: React.FC = () => {
     signOut()
       .then(() =>
         notifications.show({
-          title: 'Success',
-          message: 'You logged out',
+          title: t('notification:success_logout_title'),
+          message: t('notification:success_logout_message'),
           ...success,
         }),
       )

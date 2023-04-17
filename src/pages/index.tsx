@@ -120,6 +120,7 @@ export const getStaticProps: ({
   const config = await serverSideTranslations(locale ?? 'en', [
     'common',
     'home',
+    'notifications',
   ]);
   return {
     props: {

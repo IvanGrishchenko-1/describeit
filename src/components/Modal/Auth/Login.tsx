@@ -17,7 +17,6 @@ import { useSetRecoilState } from 'recoil';
 
 import { authModalState } from '../../../atoms/authModalAtom';
 import { auth } from '../../../firebase/ClientApp';
-import { FIREBASE_ERRORS } from '../../../firebase/Errors';
 import { error, success } from '../../Notifications/Notifications';
 
 export const Login: React.FC = () => {
@@ -48,14 +47,13 @@ export const Login: React.FC = () => {
     );
     !userCredential
       ? notifications.show({
-          title:
-            FIREBASE_ERRORS[userError?.message as keyof typeof FIREBASE_ERRORS],
-          message: '',
+          title: t('notifications:oops'),
+          message: t(`notifications:${userError?.code}`),
           ...error,
         })
       : notifications.show({
-          title: 'You have successfully logged in',
-          message: 'Glad to see you back',
+          title: t('notifications:success_login_title'),
+          message: t('notifications:success_login_message'),
           ...success,
         });
   };

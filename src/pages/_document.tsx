@@ -1,9 +1,9 @@
 import { createStylesServer, ServerStyles } from '@mantine/next';
 import Document, { DocumentContext } from 'next/document';
 
-import { rtlCache } from '../../rtl-cache';
+import { ltrCache } from '../../ltr-cache';
 
-const stylesServer = createStylesServer(rtlCache);
+const stylesServer = createStylesServer(ltrCache);
 
 export default class _Document extends Document {
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type

@@ -12,12 +12,14 @@ import { notifications } from '@mantine/notifications';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import {
+  useCreateUserWithEmailAndPassword,
+  useUpdateProfile,
+} from 'react-firebase-hooks/auth';
 import { useSetRecoilState } from 'recoil';
 
 import { authModalState } from '../../../atoms/authModalAtom';
 import { auth } from '../../../firebase/ClientApp';
-import { FIREBASE_ERRORS } from '../../../firebase/Errors';
 import { error, success } from '../../Notifications/Notifications';
 
 export const SignUp: React.FC = () => {
@@ -42,6 +44,7 @@ export const SignUp: React.FC = () => {
   });
   const [createUserWithEmailAndPassword, , loading, userError] =
     useCreateUserWithEmailAndPassword(auth);
+  const [updateProfile, updating] = useUpdateProfile(auth);
   const theme = useMantineTheme();
   const { t } = useTranslation();
 
@@ -50,12 +53,18 @@ export const SignUp: React.FC = () => {
       form.values.email,
       form.values.password,
     );
+    if (form.values.name) {
+      await updateProfile({ displayName: form.values.name });
+    }
     userCredentials
-      ? notifications.show({ title: 'Success', message: 'Success', ...success })
+      ? notifications.show({
+          title: t('notifications:success_signup_title'),
+          message: t('notifications:success_signup_message'),
+          ...success,
+        })
       : notifications.show({
-          title:
-            FIREBASE_ERRORS[userError?.message as keyof typeof FIREBASE_ERRORS],
-          message: '',
+          title: t('notifications:oops'),
+          message: t(`notifications:${userError?.code}`),
           ...error,
         });
   };
@@ -127,7 +136,7 @@ export const SignUp: React.FC = () => {
           component={motion.button}
           type="submit"
           radius="md"
-          loading={loading}
+          loading={loading || updating}
           variant="gradient"
           gradient={
             theme.colorScheme === 'dark'

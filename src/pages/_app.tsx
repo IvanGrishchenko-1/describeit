@@ -13,7 +13,7 @@ import { DefaultSeo } from 'next-seo';
 import React, { ReactElement, useState } from 'react';
 import { RecoilRoot } from 'recoil';
 
-import { rtlCache } from '../../rtl-cache';
+import { ltrCache } from '../../ltr-cache';
 import { Layout } from '../components/Layout';
 
 function App(props: AppProps & { colorScheme: ColorScheme }): ReactElement {
@@ -62,8 +62,8 @@ function App(props: AppProps & { colorScheme: ColorScheme }): ReactElement {
         <MantineProvider
           withGlobalStyles
           withNormalizeCSS
-          theme={{ colorScheme, dir: 'rtl' }}
-          emotionCache={rtlCache}
+          theme={{ colorScheme, dir: 'ltr' }}
+          emotionCache={ltrCache}
         >
           <Notifications />
           <Layout>
