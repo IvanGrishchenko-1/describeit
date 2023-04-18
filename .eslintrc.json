@@ -15,13 +15,14 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint", "prettier", "simple-import-sort"],
+  "plugins": ["@typescript-eslint", "prettier", "simple-import-sort", "json"],
   "extends": [
     "next/core-web-vitals",
     "eslint:recommended",
     "plugin:import/recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier"
+    "prettier",
+    "plugin:json/recommended"
   ],
   "rules": {
     "@typescript-eslint/explicit-member-accessibility": 0,
@@ -54,7 +55,8 @@
     "react/jsx-curly-brace-presence": [
       "error",
       { "props": "never", "children": "never" }
-    ]
+    ],
+    "json/*": ["error", "allowComments"]
   },
   "overrides": [
     {

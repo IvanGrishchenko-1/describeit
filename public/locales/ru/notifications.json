@@ -1,1 +1,11 @@
-{"auth/email-already-in-use":"Пользователь с такой почтой уже существует","auth/wrong-password":"Неправильный адрес электронной почты или пароль","oops":"...Ой","succes_logout_title":"Уже уходишь :(","success_login_message":"Рады, что ты вернулся!","success_login_title":"Добро пожаловать!","success_logout_message":"Надеемся, ты скоро вернешься!","success_signup_message":"Надеемся, вы хорошо проведете время!","success_signup_title":"Рады приветствовать вас!"}
+{
+  "oops": "...Ой",
+  "auth/wrong-password": "Неправильный адрес электронной почты или пароль",
+  "success_login_title": "Добро пожаловать!",
+  "success_logout_title": "Уже уходишь :(",
+  "success_signup_title": "Рады приветствовать вас!",
+  "success_login_message": "Рады, что ты вернулся!",
+  "success_logout_message": "Надеемся, ты скоро вернешься!",
+  "success_signup_message": "Надеемся, вы хорошо проведете время!",
+  "auth/email-already-in-use": "Пользователь с такой почтой уже существует"
+}

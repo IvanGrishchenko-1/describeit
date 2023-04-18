@@ -1,1 +1,16 @@
-{"confirm_password":"Confirm password","continue_w_email":"Or continue with email","continue_w_google":"Continue with Google","don't_have_account":"Don't have an account? Register","email":"Email","have_an_account":"Already have an account? Login","language":"Language","log_in":"Login","name":"Name","password":"Password","register":"Register","sign_out":"Sign Out","sign_up":"Sign Up","welcome":"Welcome to"}
+{
+  "name": "Name",
+  "email": "Email",
+  "log_in": "Login",
+  "sign_up": "Sign Up",
+  "welcome": "Welcome to",
+  "language": "Language",
+  "password": "Password",
+  "register": "Register",
+  "sign_out": "Sign Out",
+  "have_an_account": "Already have an account? Login",
+  "confirm_password": "Confirm password",
+  "continue_w_email": "Or continue with email",
+  "continue_w_google": "Continue with Google",
+  "don't_have_account": "Don't have an account? Register"
+}
