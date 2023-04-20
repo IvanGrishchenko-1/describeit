@@ -58,7 +58,11 @@ const useStyles = createStyles(theme => ({
 export const homeTabs: TabProps[] = [
   { value: 'anime', i18nKey: 'tabs:anime', icon: <IconLego size={24} /> },
   { value: 'movies', i18nKey: 'tabs:movies', icon: <IconMovie size={24} /> },
-  { value: 'games', i18nKey: 'tabs:games', icon: <IconDeviceGamepad size={24} /> },
+  {
+    value: 'games',
+    i18nKey: 'tabs:games',
+    icon: <IconDeviceGamepad size={24} />,
+  },
   { value: 'music', i18nKey: 'tabs:music', icon: <IconDisc size={24} /> },
 ];
 
