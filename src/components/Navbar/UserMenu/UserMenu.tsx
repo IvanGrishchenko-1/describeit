@@ -19,8 +19,9 @@ import React, { ChangeEvent, useState } from 'react';
 import { useAuthState, useSignOut } from 'react-firebase-hooks/auth';
 import { useSetRecoilState } from 'recoil';
 
-import { profileTabAtom } from '../../../atoms/profileTabAtom';
+import { DefaultValue, tabsAtom } from '../../../atoms/tabsAtom';
 import { auth } from '../../../firebase/ClientApp';
+import { profileTabs } from '../../../pages/profile';
 import { error, success } from '../../Notifications/Notifications';
 
 export const UserMenu: React.FC = () => {
@@ -29,7 +30,7 @@ export const UserMenu: React.FC = () => {
   const { t } = useTranslation();
   const { push, pathname, asPath, query, locale } = useRouter();
   const [checked, setChecked] = useState(locale === 'ru');
-  const setProfileTab = useSetRecoilState(profileTabAtom);
+  const setTabs = useSetRecoilState(tabsAtom);
   const [user] = useAuthState(auth);
 
   const handleSignOut = (): Promise<void> =>
@@ -58,8 +59,8 @@ export const UserMenu: React.FC = () => {
     });
   };
 
-  const handleAddPostClick = (): void => {
-    setProfileTab({ value: 'create-post' });
+  const handleMenuClick = (defaultValue: DefaultValue): void => {
+    setTabs({ defaultValue: defaultValue, tabs: profileTabs, view: 'profile' });
     push('/profile', `${locale}/profile`, { locale: locale });
   };
 
@@ -95,15 +96,13 @@ export const UserMenu: React.FC = () => {
         </MantineMenu.Item>
         <MantineMenu.Item
           icon={<IconUser size={20} />}
-          component="a"
-          href={`${locale}/profile`}
-          target="_blank"
+          onClick={() => handleMenuClick('account-settings')}
         >
           <Text size="lg">{t('common:profile')}</Text>
         </MantineMenu.Item>
         <MantineMenu.Item
           icon={<IconPlus size={20} />}
-          onClick={handleAddPostClick}
+          onClick={() => handleMenuClick('create-post')}
         >
           <Text size="lg">{t('common:add_post')}</Text>
         </MantineMenu.Item>

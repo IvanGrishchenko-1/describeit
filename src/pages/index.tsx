@@ -8,14 +8,23 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
+import {
+  IconDeviceGamepad,
+  IconDisc,
+  IconLego,
+  IconMovie,
+} from '@tabler/icons-react';
 import { motion } from 'framer-motion';
 import { GetStaticPropsContext, NextPage } from 'next';
 import { UserConfig } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { NextSeo } from 'next-seo';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 
+import { tabsAtom } from '../atoms/tabsAtom';
 import { CustomCard } from '../components/Card/CustomCard';
+import { TabProps } from '../components/Tabs/Tab';
 import { Tabs } from '../components/Tabs/Tabs';
 
 export type CustomInternalizationConfig = {
@@ -46,12 +55,25 @@ const useStyles = createStyles(theme => ({
   },
 }));
 
+export const homeTabs: TabProps[] = [
+  { value: 'anime', i18nKey: 'tabs:anime', icon: <IconLego size={24} /> },
+  { value: 'movies', i18nKey: 'tabs:movies', icon: <IconMovie size={24} /> },
+  { value: 'games', i18nKey: 'tabs:games', icon: <IconDeviceGamepad size={24} /> },
+  { value: 'music', i18nKey: 'tabs:music', icon: <IconDisc size={24} /> },
+];
+
 const HomePage: NextPage<InternalizationStaticProps> = () => {
   const matchesDesktop = useMediaQuery('(min-width: 768px)', true, {
     getInitialValueInEffect: false,
   });
   const { classes } = useStyles();
   const theme = useMantineTheme();
+  const [tabs, setTabs] = useRecoilState(tabsAtom);
+
+  useEffect(() => {
+    if (!tabs.tabs.length)
+      setTabs({ defaultValue: 'anime', tabs: homeTabs, view: 'home' });
+  }, []);
 
   return (
     <div className={classes.container}>
@@ -75,10 +97,10 @@ const HomePage: NextPage<InternalizationStaticProps> = () => {
               <MantineTabs
                 variant="pills"
                 orientation="vertical"
-                defaultValue="anime"
+                defaultValue={tabs.defaultValue}
                 color={theme.colorScheme === 'dark' ? 'orange' : 'indigo'}
               >
-                <Tabs />
+                <Tabs tabs={tabs.tabs} />
               </MantineTabs>
             </Stack>
           </motion.div>

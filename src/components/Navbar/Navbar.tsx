@@ -9,9 +9,12 @@ import {
 import { useMediaQuery } from '@mantine/hooks';
 import { IconMoonStars, IconSun } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 import React, { Fragment, memo } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useSetRecoilState } from 'recoil';
 
+import { tabsAtom } from '../../atoms/tabsAtom';
 import { auth } from '../../firebase/ClientApp';
 import { AuthButtons } from './AuthButtons/AuthButtons';
 import { MobileMenu } from './MobileCategories/MobileMenu';
@@ -53,6 +56,13 @@ const NavbarComponent: React.FC = () => {
     getInitialValueInEffect: false,
   });
   const [user] = useAuthState(auth);
+  const setTabs = useSetRecoilState(tabsAtom);
+  const { push, locale } = useRouter();
+
+  const handleTitleClick = (): void => {
+    setTabs(prevValue => ({ ...prevValue, tabs: [] }));
+    push('/', `${locale}/`, { locale });
+  };
 
   return (
     <Fragment>
@@ -68,6 +78,7 @@ const NavbarComponent: React.FC = () => {
               order={matchesDesktop ? 1 : 4}
               variant="gradient"
               className={classes.title}
+              onClick={handleTitleClick}
             >
               Describeit.
             </Title>

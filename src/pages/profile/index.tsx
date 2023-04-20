@@ -17,11 +17,11 @@ import { motion } from 'framer-motion';
 import { GetStaticPropsContext, NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { NextSeo } from 'next-seo';
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 
-import { profileTabAtom } from '../../atoms/profileTabAtom';
+import { DefaultValue, tabsAtom } from '../../atoms/tabsAtom';
 import { AccountSettings } from '../../components/Profile/AccountSettings';
 import { SignInPaper } from '../../components/Profile/SignInPaper';
 import { TabProps } from '../../components/Tabs/Tab';
@@ -29,7 +29,7 @@ import { Tabs as CustomTabs } from '../../components/Tabs/Tabs';
 import { auth } from '../../firebase/ClientApp';
 import { InternalizationStaticProps } from '../index';
 
-const tabs: TabProps[] = [
+export const profileTabs: TabProps[] = [
   {
     value: 'account-settings',
     i18nKey: 'tabs:account-settings',
@@ -68,11 +68,20 @@ const useStyles = createStyles(theme => ({
 const Profile: NextPage<InternalizationStaticProps> = () => {
   const { classes } = useStyles();
   const theme = useMantineTheme();
-  const { value } = useRecoilValue(profileTabAtom);
+  const [tabs, setTabs] = useRecoilState(tabsAtom);
   const matchesDesktop = useMediaQuery('(min-width: 768px)', true, {
     getInitialValueInEffect: false,
   });
   const [user] = useAuthState(auth);
+
+  useEffect(() => {
+    if (!tabs.tabs.length)
+      setTabs({
+        defaultValue: 'account-settings',
+        tabs: profileTabs,
+        view: 'profile',
+      });
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -85,13 +94,19 @@ const Profile: NextPage<InternalizationStaticProps> = () => {
         >
           <Tabs
             variant="pills"
-            defaultValue={value}
+            value={tabs.defaultValue}
+            onTabChange={value =>
+              setTabs(prevValue => ({
+                ...prevValue,
+                defaultValue: value as DefaultValue,
+              }))
+            }
             orientation="vertical"
             color={theme.colorScheme === 'dark' ? 'orange' : 'indigo'}
           >
             {matchesDesktop && (
               <Tabs.List>
-                <CustomTabs tabs={tabs} />
+                <CustomTabs tabs={tabs.tabs} />
               </Tabs.List>
             )}
 
