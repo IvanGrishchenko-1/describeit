@@ -4,6 +4,7 @@ import {
   Flex,
   Pagination,
   Stack,
+  Tabs as MantineTabs,
   useMantineTheme,
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
@@ -40,8 +41,8 @@ const useStyles = createStyles(theme => ({
     backgroundSize: 'cover',
     backgroundImage:
       theme.colorScheme === 'dark'
-        ? 'url(/icons/dark-background-down-waves.svg)'
-        : 'url(/icons/light-background-down-waves.svg)',
+        ? 'url(/icons/dark-home-waves.svg)'
+        : 'url(/icons/light-home-waves.svg)',
   },
 }));
 
@@ -71,7 +72,14 @@ const HomePage: NextPage<InternalizationStaticProps> = () => {
             exit={{ x: -100, opacity: 0 }}
           >
             <Stack align="flex-start" justify="flex-start" w={200} h={300}>
-              <Tabs />
+              <MantineTabs
+                variant="pills"
+                orientation="vertical"
+                defaultValue="anime"
+                color={theme.colorScheme === 'dark' ? 'orange' : 'indigo'}
+              >
+                <Tabs />
+              </MantineTabs>
             </Stack>
           </motion.div>
         )}
@@ -117,10 +125,10 @@ export const getStaticProps: ({
   locale,
 }: GetStaticPropsContext) => Promise<InternalizationStaticProps> = async ({
   locale,
-}: GetStaticPropsContext) => {
+}) => {
   const config = await serverSideTranslations(locale ?? 'en', [
     'common',
-    'home',
+    'tabs',
     'notifications',
   ]);
   return {

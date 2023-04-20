@@ -13,7 +13,8 @@ import { GetStaticPropsContext, NextPage } from 'next';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useRef } from 'react';
+import { NextSeo } from 'next-seo';
+import { Fragment, useRef } from 'react';
 
 import { InternalizationStaticProps } from './index';
 
@@ -21,6 +22,12 @@ const useStyles = createStyles(theme => ({
   root: {
     width: '100vw',
     height: '100vh',
+    [theme.fn.smallerThan('sm')]: {
+      alignItems: 'start',
+      padding: `0 ${theme.spacing.xl}`,
+      marginTop: 80,
+      height: 'fit-content',
+    },
   },
 
   drag_area: {
@@ -76,54 +83,63 @@ const Custom404: NextPage = () => {
   const { t } = useTranslation();
 
   return (
-    <Center className={classes.root}>
-      <Flex direction="row" gap={100} h={600} justify="center" wrap="wrap">
-        <Flex direction="column" gap="md" w={300}>
-          <Title order={1} className={classes.title} variant="gradient">
-            {t('404:title')}
-          </Title>
-          <Title order={4}>{t('404:message')}</Title>
-          <Link href="/" style={{ marginTop: 'auto' }}>
-            <Button
-              component={motion.button}
-              w="100%"
-              radius="sm"
+    <Fragment>
+      <NextSeo title="404" description="Page not found" />
+      <Center className={classes.root}>
+        <Flex
+          direction="row"
+          gap={matchesDesktop ? 100 : 50}
+          h={600}
+          justify="center"
+          wrap="wrap"
+        >
+          <Flex direction="column" gap="md" w={300}>
+            <Title order={1} className={classes.title} variant="gradient">
+              {t('404:title')}
+            </Title>
+            <Title order={4}>{t('404:message')}</Title>
+            <Link href="/" style={{ marginTop: 'auto' }}>
+              <Button
+                component={motion.button}
+                w="100%"
+                radius="sm"
+                variant="gradient"
+                gradient={
+                  theme.colorScheme === 'dark'
+                    ? { from: 'orange', to: 'red', deg: 45 }
+                    : { from: 'indigo', to: 'cyan', deg: 45 }
+                }
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                {t('404:button')}
+              </Button>
+            </Link>
+          </Flex>
+          <motion.div className={classes.drag_area} ref={constraintsRef}>
+            <Text
+              component={motion.div}
+              animate={matchesDesktop ? desktopAnimations : mobileAnimations}
+              transition={{ repeat: Infinity, duration: 10 }}
+              drag
+              dragConstraints={constraintsRef}
+              pos="absolute"
               variant="gradient"
+              sx={{ cursor: 'grab' }}
               gradient={
                 theme.colorScheme === 'dark'
                   ? { from: 'orange', to: 'red', deg: 45 }
                   : { from: 'indigo', to: 'cyan', deg: 45 }
               }
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+              fz={70}
+              fw={900}
             >
-              {t('404:button')}
-            </Button>
-          </Link>
+              404
+            </Text>
+          </motion.div>
         </Flex>
-        <motion.div className={classes.drag_area} ref={constraintsRef}>
-          <Text
-            component={motion.div}
-            animate={matchesDesktop ? desktopAnimations : mobileAnimations}
-            transition={{ repeat: Infinity, duration: 10 }}
-            drag
-            dragConstraints={constraintsRef}
-            pos="absolute"
-            variant="gradient"
-            sx={{ cursor: 'grab' }}
-            gradient={
-              theme.colorScheme === 'dark'
-                ? { from: 'orange', to: 'red', deg: 45 }
-                : { from: 'indigo', to: 'cyan', deg: 45 }
-            }
-            fz={70}
-            fw={900}
-          >
-            404
-          </Text>
-        </motion.div>
-      </Flex>
-    </Center>
+      </Center>
+    </Fragment>
   );
 };
 

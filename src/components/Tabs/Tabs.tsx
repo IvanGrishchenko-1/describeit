@@ -1,4 +1,4 @@
-import { Tabs as MantineTabs, useMantineTheme } from '@mantine/core';
+import { Tabs as MantineTabs } from '@mantine/core';
 import {
   IconDeviceGamepad,
   IconDisc,
@@ -9,28 +9,21 @@ import React from 'react';
 
 import { Tab, TabProps } from './Tab';
 
-const tabs: TabProps[] = [
-  { value: 'anime', i18nKey: 'home:anime', icon: <IconLego /> },
-  { value: 'movies', i18nKey: 'home:movies', icon: <IconMovie /> },
-  { value: 'games', i18nKey: 'home:games', icon: <IconDeviceGamepad /> },
-  { value: 'music', i18nKey: 'home:music', icon: <IconDisc /> },
+type TabsProps = {
+  tabs?: TabProps[];
+};
+
+const tabsHome: TabProps[] = [
+  { value: 'anime', i18nKey: 'tabs:anime', icon: <IconLego /> },
+  { value: 'movies', i18nKey: 'tabs:movies', icon: <IconMovie /> },
+  { value: 'games', i18nKey: 'tabs:games', icon: <IconDeviceGamepad /> },
+  { value: 'music', i18nKey: 'tabs:music', icon: <IconDisc /> },
 ];
 
-export const Tabs: React.FC = () => {
-  const theme = useMantineTheme();
-
-  return (
-    <MantineTabs
-      variant="pills"
-      defaultValue="anime"
-      orientation="vertical"
-      color={theme.colorScheme === 'dark' ? 'orange' : 'indigo'}
-    >
-      <MantineTabs.List>
-        {tabs.map((props, index) => (
-          <Tab key={`tab-${index}`} {...props} />
-        ))}
-      </MantineTabs.List>
-    </MantineTabs>
-  );
-};
+export const Tabs: React.FC<TabsProps> = ({ tabs = tabsHome }) => (
+  <MantineTabs.List>
+    {tabs.map((props, index) => (
+      <Tab key={`tab-${index}`} {...props} />
+    ))}
+  </MantineTabs.List>
+);

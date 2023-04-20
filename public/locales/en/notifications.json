@@ -1,5 +1,6 @@
 {
   "oops": "...Oops",
+  "something_went_wrong": "Something went wrong",
   "auth/wrong-password": "Invalid email or password",
   "success_login_title": "Welcome back!",
   "success_logout_title": "Already leave:(",
@@ -7,5 +8,10 @@
   "success_login_message": "Happy that you returned!",
   "success_logout_message": "Hope you'll return soon!",
   "success_signup_message": "Hoping you will have a good time!",
-  "auth/email-already-in-use": "A user with that email already exists"
+  "auth/email-already-in-use": "A user with that email already exists",
+  "success_image_upload_title": "Successfully uploaded your image",
+  "success_image_upload_message": "Nice pic :)",
+  "success_name_change_title": "You successfully changed your name",
+  "success_password_change_title": "You successfully changed your password",
+  "success_password_change_message": "Only you know your password"
 }

@@ -5,31 +5,39 @@ import {
   Text,
   useMantineTheme,
 } from '@mantine/core';
-import { useToggle } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
-import { IconLanguage, IconUser } from '@tabler/icons-react';
+import {
+  IconLanguage,
+  IconPlus,
+  IconUser,
+  IconUserOff,
+} from '@tabler/icons-react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
-import React, { useEffect } from 'react';
-import { useSignOut } from 'react-firebase-hooks/auth';
+import React, { ChangeEvent, useState } from 'react';
+import { useAuthState, useSignOut } from 'react-firebase-hooks/auth';
+import { useSetRecoilState } from 'recoil';
 
+import { profileTabAtom } from '../../../atoms/profileTabAtom';
 import { auth } from '../../../firebase/ClientApp';
 import { error, success } from '../../Notifications/Notifications';
 
 export const UserMenu: React.FC = () => {
   const theme = useMantineTheme();
   const [signOut] = useSignOut(auth);
-  const [value, toggle] = useToggle();
-  const { push, pathname, asPath, query } = useRouter();
   const { t } = useTranslation();
+  const { push, pathname, asPath, query, locale } = useRouter();
+  const [checked, setChecked] = useState(locale === 'ru');
+  const setProfileTab = useSetRecoilState(profileTabAtom);
+  const [user] = useAuthState(auth);
 
   const handleSignOut = (): Promise<void> =>
     signOut()
       .then(() =>
         notifications.show({
-          title: t('notification:success_logout_title'),
-          message: t('notification:success_logout_message'),
+          title: t('notifications:success_logout_title'),
+          message: t('notifications:success_logout_message'),
           ...success,
         }),
       )
@@ -41,12 +49,19 @@ export const UserMenu: React.FC = () => {
         }),
       );
 
-  const pushToLocale = async (): Promise<boolean | void> =>
-    await push({ pathname, query }, asPath, { locale: value ? 'ru' : 'en' });
+  const handleLanguageChange = async (
+    event: ChangeEvent<HTMLInputElement>,
+  ): Promise<void> => {
+    setChecked(event.currentTarget.checked);
+    await push({ pathname, query }, asPath, {
+      locale: checked ? 'en' : 'ru',
+    });
+  };
 
-  useEffect(() => {
-    pushToLocale().catch(error => console.error(error));
-  }, [value]);
+  const handleAddPostClick = (): void => {
+    setProfileTab({ value: 'create-post' });
+    push('/profile', `${locale}/profile`, { locale: locale });
+  };
 
   return (
     <MantineMenu
@@ -56,6 +71,8 @@ export const UserMenu: React.FC = () => {
     >
       <MantineMenu.Target>
         <Avatar
+          src={user?.photoURL}
+          alt="avatar"
           size="md"
           component={motion.div}
           whileHover={{ scale: 1.1 }}
@@ -67,13 +84,28 @@ export const UserMenu: React.FC = () => {
         <MantineMenu.Item icon={<IconLanguage size={20} />}>
           <Switch
             labelPosition="left"
+            checked={checked}
             label={t('common:language')}
             onLabel="EN"
             offLabel="RU"
             size="lg"
-            onChange={() => toggle()}
+            onChange={handleLanguageChange}
             color={theme.colorScheme === 'dark' ? 'orange' : 'indigo'}
           />
+        </MantineMenu.Item>
+        <MantineMenu.Item
+          icon={<IconUser size={20} />}
+          component="a"
+          href={`${locale}/profile`}
+          target="_blank"
+        >
+          <Text size="lg">{t('common:profile')}</Text>
+        </MantineMenu.Item>
+        <MantineMenu.Item
+          icon={<IconPlus size={20} />}
+          onClick={handleAddPostClick}
+        >
+          <Text size="lg">{t('common:add_post')}</Text>
         </MantineMenu.Item>
 
         <MantineMenu.Divider />
@@ -82,7 +114,7 @@ export const UserMenu: React.FC = () => {
           onClick={handleSignOut}
           closeMenuOnClick
           icon={
-            <IconUser
+            <IconUserOff
               size={20}
               fill={theme.colors.red[5]}
               color={theme.colors.red[5]}

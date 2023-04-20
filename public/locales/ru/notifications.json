@@ -1,5 +1,6 @@
 {
   "oops": "...Ой",
+  "something_went_wrong": "Что-то пошло не так",
   "auth/wrong-password": "Неправильный адрес электронной почты или пароль",
   "success_login_title": "Добро пожаловать!",
   "success_logout_title": "Уже уходишь :(",
@@ -7,5 +8,10 @@
   "success_login_message": "Рады, что ты вернулся!",
   "success_logout_message": "Надеемся, ты скоро вернешься!",
   "success_signup_message": "Надеемся, вы хорошо проведете время!",
-  "auth/email-already-in-use": "Пользователь с такой почтой уже существует"
+  "auth/email-already-in-use": "Пользователь с такой почтой уже существует",
+  "success_image_upload_title": "Ваше изображение успешно загружено",
+  "success_image_upload_message": "Хорошая фотка :)",
+  "success_name_change_title": "Вы успешно изменили свое имя",
+  "success_password_change_title": "Вы успешно изменили свой пароль",
+  "success_password_change_message": "Только вы знаете свой пароль"
 }

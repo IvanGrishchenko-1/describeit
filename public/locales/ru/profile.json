@@ -1,0 +1,14 @@
+{
+  "your_profile": "Это ваш профиль",
+  "change_name": "Сменить имя",
+  "change_display_name": "Измените отображаемое имя",
+  "upload_avatar": "Загрузите новый аватар",
+  "upload_description": "Перетащите сюда файлы для загрузки. Мы принимаем только файлы .png и .jpeg размером менее 30 Мб.",
+  "select_file": "Выбрать файл",
+  "upload": "Загрузить",
+  "choose_different_photo": "Выбрать другое фото",
+  "sign_in_paper": "Войдите или создайте учетную запись",
+  "change_password": "Сменить пароль",
+  "new_password": "Новый пароль",
+  "enter_display_name": "Введите отображаемое имя"
+}

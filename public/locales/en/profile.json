@@ -1,0 +1,14 @@
+{
+  "your_profile": "This is your profile",
+  "change_name": "Change name",
+  "change_display_name": "Change your application display name",
+  "upload_avatar": "Upload new avatar",
+  "upload_description": "Drag and drop files here to upload. We can accept only .png and .jpeg files that are less than 30mb in size.",
+  "select_file": "Select file",
+  "upload": "Upload",
+  "choose_different_photo": "Choose different photo",
+  "sign_in_paper": "Either sign in or create an account",
+  "change_password": "Change password",
+  "new_password": "New password",
+  "enter_display_name": "Enter display name"
+}
