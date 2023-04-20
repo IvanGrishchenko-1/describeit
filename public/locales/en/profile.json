@@ -10,5 +10,6 @@
   "sign_in_paper": "Either sign in or create an account",
   "change_password": "Change password",
   "new_password": "New password",
-  "enter_display_name": "Enter display name"
+  "enter_display_name": "Enter display name",
+  "delete_account": "Delete account"
 }

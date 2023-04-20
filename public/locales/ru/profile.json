@@ -10,5 +10,6 @@
   "sign_in_paper": "Войдите или создайте учетную запись",
   "change_password": "Сменить пароль",
   "new_password": "Новый пароль",
-  "enter_display_name": "Введите отображаемое имя"
+  "enter_display_name": "Введите отображаемое имя",
+  "delete_account": "Удалить аккаунт"
 }

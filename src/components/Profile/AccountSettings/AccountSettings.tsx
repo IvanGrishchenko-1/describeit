@@ -4,8 +4,8 @@ import { useMediaQuery } from '@mantine/hooks';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
-import { AvatarUploader } from '../Dropzone/AvatarUploader';
-import { DropzoneButton } from '../Dropzone/Dropzone';
+import { AvatarUploader } from '../../Dropzone/AvatarUploader';
+import { DropzoneButton } from '../../Dropzone/Dropzone';
 import { ChangeDisplayName } from './ChangeDisplayName';
 import { ChangePassword } from './ChangePassword';
 

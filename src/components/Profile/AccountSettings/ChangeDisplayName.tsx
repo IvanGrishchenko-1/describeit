@@ -9,8 +9,8 @@ import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { useUpdateProfile } from 'react-firebase-hooks/auth';
 
-import { auth } from '../../firebase/ClientApp';
-import { error, success } from '../Notifications/Notifications';
+import { auth } from '../../../firebase/ClientApp';
+import { error, success } from '../../Notifications/Notifications';
 
 type ChangeDisplayNameProps = {
   user?: User | null;

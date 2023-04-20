@@ -22,7 +22,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useRecoilState } from 'recoil';
 
 import { DefaultValue, tabsAtom } from '../../atoms/tabsAtom';
-import { AccountSettings } from '../../components/Profile/AccountSettings';
+import { AccountSettings } from '../../components/Profile/AccountSettings/AccountSettings';
+import { DeleteAccount } from '../../components/Profile/DeleteAccount/DeleteAccount';
 import { SignInPaper } from '../../components/Profile/SignInPaper';
 import { TabProps } from '../../components/Tabs/Tab';
 import { Tabs as CustomTabs } from '../../components/Tabs/Tabs';
@@ -114,6 +115,7 @@ const Profile: NextPage<InternalizationStaticProps> = () => {
               {user ? (
                 <Fragment>
                   <AccountSettings user={user} />
+                  <DeleteAccount />
                 </Fragment>
               ) : (
                 <SignInPaper />

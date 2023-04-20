@@ -13,5 +13,6 @@
   "success_image_upload_message": "Nice pic :)",
   "success_name_change_title": "You successfully changed your name",
   "success_password_change_title": "You successfully changed your password",
-  "success_password_change_message": "Only you know your password"
+  "success_password_change_message": "Only you know your password",
+  "success_delete_account_title": "Account successfully deleted"
 }
