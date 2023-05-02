@@ -16,5 +16,13 @@
   "continue_w_google": "Continue with Google",
   "don't_have_account": "Don't have an account? Register",
   "not_empty": "Should not be empty",
-  "password_include": "Password should include at least 6 characters"
+  "password_include": "Password should include at least 6 characters",
+  "content": "Input your content here",
+  "insert_image": "Insert image",
+  "insert_youtube": "Insert youtube video",
+  "upload_reject": "",
+  "upload_accept": "",
+  "upload_idle": "",
+  "upload_text": "",
+  "select_file": "Select file"
 }

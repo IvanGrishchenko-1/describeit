@@ -11,5 +11,19 @@
   "change_password": "Change password",
   "new_password": "New password",
   "enter_display_name": "Enter display name",
-  "delete_account": "Delete account"
+  "delete_account": "Delete account",
+  "select_template": "Select template",
+  "pick_one": "Pick one",
+  "nothing_found": "Nothing found",
+  "template_thumbnail_text": "Thumbnail + text",
+  "template_thumbnail_text_description": "Some fancy image plus short description",
+  "template_thumbnail": "Just a thumbnail",
+  "template_thumbnail_description": "Your fancy image to share",
+  "template_text": "Your interesting story to share",
+  "template_text_description": "Short summary",
+  "title": "Title",
+  "title_error": "Title must not be empty",
+  "description": "Description",
+  "description_description": "Short description for your post",
+  "description_error": "Description must not be empty"
 }

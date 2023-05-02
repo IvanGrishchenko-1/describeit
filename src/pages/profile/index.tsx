@@ -29,6 +29,7 @@ import { TabProps } from '../../components/Tabs/Tab';
 import { Tabs as CustomTabs } from '../../components/Tabs/Tabs';
 import { auth } from '../../firebase/ClientApp';
 import { InternalizationStaticProps } from '../index';
+import { CreatePost } from "../../components/Profile/CreatePost/CreatePost";
 
 export const profileTabs: TabProps[] = [
   {
@@ -115,6 +116,7 @@ const Profile: NextPage<InternalizationStaticProps> = () => {
               {user ? (
                 <Fragment>
                   <AccountSettings user={user} />
+                  <CreatePost />
                   <DeleteAccount />
                 </Fragment>
               ) : (

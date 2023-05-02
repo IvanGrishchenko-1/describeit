@@ -16,5 +16,13 @@
   "continue_w_google": "Продолжить с Google",
   "don't_have_account": "У вас нет аккаунта? Зарегистрироваться",
   "not_empty": "Поле не должно быть пустым",
-  "password_include": "Пароль должен содержать не менее 6 символов"
+  "password_include": "Пароль должен содержать не менее 6 символов",
+  "content": "Введите свой контент здесь",
+  "insert_image": "Вставить изображение",
+  "insert_youtube": "Вставить видео с ютуба",
+  "upload_reject": "",
+  "upload_accept": "",
+  "upload_idle": "",
+  "upload_text": "",
+  "select_file": "Выбрать файл"
 }

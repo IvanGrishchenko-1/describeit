@@ -11,5 +11,19 @@
   "change_password": "Сменить пароль",
   "new_password": "Новый пароль",
   "enter_display_name": "Введите отображаемое имя",
-  "delete_account": "Удалить аккаунт"
+  "delete_account": "Удалить аккаунт",
+  "select_template": "Выберите шаблон",
+  "pick_one": "Выберите один",
+  "nothing_found": "Ничего не найдено",
+  "template_thumbnail_text": "Фото + текст",
+  "template_thumbnail_text_description": "Красивое изображение плюс краткое описание",
+  "template_thumbnail": "Просто картинка",
+  "template_thumbnail_description": "Ваша красивая картинка на фоне",
+  "template_text": "Интересная история",
+  "template_text_description": "Краткое содержание",
+  "title": "Заголовок",
+  "title_error": "Заголовок не должен быть пустым",
+  "description": "Описание",
+  "description_description": "Краткое описание вашего поста",
+  "description_error": "Описание не должно быть пустым"
 }
