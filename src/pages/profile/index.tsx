@@ -23,13 +23,13 @@ import { useRecoilState } from 'recoil';
 
 import { DefaultValue, tabsAtom } from '../../atoms/tabsAtom';
 import { AccountSettings } from '../../components/Profile/AccountSettings/AccountSettings';
+import { CreatePost } from '../../components/Profile/CreatePost/CreatePost';
 import { DeleteAccount } from '../../components/Profile/DeleteAccount/DeleteAccount';
 import { SignInPaper } from '../../components/Profile/SignInPaper';
 import { TabProps } from '../../components/Tabs/Tab';
 import { Tabs as CustomTabs } from '../../components/Tabs/Tabs';
 import { auth } from '../../firebase/ClientApp';
 import { InternalizationStaticProps } from '../index';
-import { CreatePost } from "../../components/Profile/CreatePost/CreatePost";
 
 export const profileTabs: TabProps[] = [
   {
