@@ -9,8 +9,9 @@ export const data: DataType[] = [
   {
     image:
       'https://firebasestorage.googleapis.com/v0/b/describeit-fc0ca.appspot.com/o/templates%2Fthumbnail_text.jpg?alt=media&token=220b7459-e158-4757-95a7-c28d02e2a2ad',
-    label: 'profile:template_thumbnail_text',
+    label: 'Thumbnail+text',
     value: 'thumbnail_text',
+    title: 'profile:template_thumbnail_text',
     description: 'profile:template_thumbnail_text_description',
     popoverDropdown: (
       <ThumbnailTextCard
@@ -31,8 +32,9 @@ export const data: DataType[] = [
   {
     image:
       'https://firebasestorage.googleapis.com/v0/b/describeit-fc0ca.appspot.com/o/templates%2Fthumbnail.jpg?alt=media&token=d3f30f16-ff28-4a9e-b110-ebdb766abdd1',
-    label: 'profile:template_thumbnail',
+    label: 'Thumbnail',
     value: 'thumbnail',
+    title: 'profile:template_thumbnail',
     description: 'profile:template_thumbnail_description',
     popoverDropdown: (
       <ThumbnailCard
@@ -45,8 +47,9 @@ export const data: DataType[] = [
   {
     image:
       'https://firebasestorage.googleapis.com/v0/b/describeit-fc0ca.appspot.com/o/templates%2Ftext.jpg?alt=media&token=34e5176f-a0f4-4d91-b4fe-38f91f85c645',
-    label: 'profile:template_text',
+    label: 'Text',
     value: 'text',
+    title: 'profile:template_text',
     description: 'profile:template_text_description',
     popoverDropdown: (
       <TextCard

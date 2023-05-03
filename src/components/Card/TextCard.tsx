@@ -1,5 +1,4 @@
-import { createStyles, Paper, rem, Text, ThemeIcon } from '@mantine/core';
-import { IconColorSwatch } from '@tabler/icons-react';
+import { createStyles, Paper, rem, Text } from '@mantine/core';
 import React from 'react';
 
 const useStyles = createStyles(theme => ({
@@ -27,8 +26,12 @@ const useStyles = createStyles(theme => ({
       width: rem(6),
       backgroundImage: theme.fn.linearGradient(
         0,
-        theme.colors.pink[6],
-        theme.colors.orange[6],
+        theme.colorScheme === 'dark'
+          ? theme.colors.orange[8]
+          : theme.colors.indigo[8],
+        theme.colorScheme === 'dark'
+          ? theme.colors.red[8]
+          : theme.colors.cyan[8],
       ),
     },
   },
@@ -46,14 +49,6 @@ export const TextCard: React.FC<CardGradientProps> = ({
   const { classes } = useStyles();
   return (
     <Paper withBorder radius="md" className={classes.card}>
-      <ThemeIcon
-        size="xl"
-        radius="md"
-        variant="gradient"
-        gradient={{ deg: 0, from: 'pink', to: 'orange' }}
-      >
-        <IconColorSwatch size={rem(28)} stroke={1.5} />
-      </ThemeIcon>
       <Text size="xl" weight={500} mt="md">
         {title}
       </Text>

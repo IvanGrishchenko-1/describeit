@@ -14,6 +14,7 @@ export type DataType = {
   image: string;
   label: string;
   value: TemplateValues;
+  title: string;
   description: string;
   popoverDropdown: ReactNode;
 };
@@ -28,16 +29,12 @@ export const TemplateSelect: React.FC = () => {
       label={t('profile:select_template')}
       placeholder={t('profile:pick_one') as string}
       itemComponent={SelectItem}
+      initiallyOpened
       value={template}
       onChange={setTemplate}
       data={data}
-      searchable
       maxDropdownHeight={400}
       nothingFound={t('profile:nothing_found')}
-      filter={(value, item) =>
-        item.label?.toLowerCase().includes(value.toLowerCase().trim()) ||
-        item.description.toLowerCase().includes(value.toLowerCase().trim())
-      }
       transitionProps={{
         transition: 'pop-top-left',
         duration: 80,

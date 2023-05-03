@@ -1,7 +1,7 @@
 import { Button, Group, Input, Modal, useMantineTheme } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { motion } from 'framer-motion';
-import React from 'react';
+import React, { FormEvent } from 'react';
 
 import { TextEditorModalProps } from './ImageModal';
 
@@ -23,7 +23,8 @@ export const YoutubeModal: React.FC<TextEditorModalProps> = ({
     },
   });
 
-  const handleSubmit = (): void => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
+    event.stopPropagation();
     editor?.commands.setYoutubeVideo({ src: form.values.url });
     close();
   };
@@ -43,7 +44,7 @@ export const YoutubeModal: React.FC<TextEditorModalProps> = ({
       }}
       transitionProps={{ transition: 'slide-down', duration: 300 }}
     >
-      <form onSubmit={form.onSubmit(handleSubmit)}>
+      <form onSubmit={form.onSubmit((values, event) => handleSubmit(event))}>
         <Group>
           <Input.Wrapper
             id="url-input"

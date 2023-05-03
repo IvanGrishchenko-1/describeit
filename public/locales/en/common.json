@@ -20,9 +20,8 @@
   "content": "Input your content here",
   "insert_image": "Insert image",
   "insert_youtube": "Insert youtube video",
-  "upload_reject": "",
-  "upload_accept": "",
-  "upload_idle": "",
-  "upload_text": "",
-  "select_file": "Select file"
+  "upload_reject": "Invalid file",
+  "upload_accept": "Valid file",
+  "upload_idle": "Upload file",
+  "upload_text": "Drag and drop files here to upload"
 }

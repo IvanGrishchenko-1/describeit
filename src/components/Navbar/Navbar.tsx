@@ -16,6 +16,7 @@ import { useSetRecoilState } from 'recoil';
 
 import { tabsAtom } from '../../atoms/tabsAtom';
 import { auth } from '../../firebase/ClientApp';
+import { homeTabs } from '../../pages';
 import { AuthButtons } from './AuthButtons/AuthButtons';
 import { MobileMenu } from './MobileCategories/MobileMenu';
 import { MobileMenuDrawer } from './MobileCategories/MobileMenuDrawer';
@@ -60,8 +61,9 @@ const NavbarComponent: React.FC = () => {
   const { push, locale } = useRouter();
 
   const handleTitleClick = (): void => {
-    setTabs(prevValue => ({ ...prevValue, tabs: [] }));
-    push('/', `${locale}/`, { locale });
+    Promise.resolve(push('/', `${locale}/`, { locale })).then(() =>
+      setTabs({ view: 'home', tabs: homeTabs, defaultValue: '' }),
+    );
   };
 
   return (

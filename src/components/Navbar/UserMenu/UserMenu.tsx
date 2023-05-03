@@ -60,8 +60,15 @@ export const UserMenu: React.FC = () => {
   };
 
   const handleMenuClick = (defaultValue: DefaultValue): void => {
-    setTabs({ defaultValue: defaultValue, tabs: profileTabs, view: 'profile' });
-    push('/profile', `${locale}/profile`, { locale: locale });
+    Promise.resolve(
+      push('/profile', `${locale}/profile`, { locale: locale }),
+    ).then(() =>
+      setTabs({
+        defaultValue: defaultValue,
+        tabs: profileTabs,
+        view: 'profile',
+      }),
+    );
   };
 
   return (

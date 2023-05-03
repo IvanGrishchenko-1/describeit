@@ -6,6 +6,7 @@ import React, { forwardRef, ReactNode } from 'react';
 interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
   image: string;
   label: string;
+  title: string;
   description: string;
   popoverDropdown: ReactNode;
 }
@@ -16,7 +17,7 @@ interface CustomTargetProps extends Omit<ItemProps, 'popoverDropdown'> {
 }
 
 const CustomTarget = forwardRef<HTMLDivElement, CustomTargetProps>(
-  ({ image, label, description, open, close }, ref, ...props) => {
+  ({ image, title, description, open, close }, ref, ...props) => {
     const { t } = useTranslation();
 
     return (
@@ -25,7 +26,7 @@ const CustomTarget = forwardRef<HTMLDivElement, CustomTargetProps>(
           <Avatar src={image} />
 
           <div>
-            <Text size="sm">{t(label)}</Text>
+            <Text size="sm">{t(title)}</Text>
             <Text size="xs" opacity={0.65}>
               {t(description)}
             </Text>
@@ -40,7 +41,7 @@ CustomTarget.displayName = 'CustomTarget';
 
 export const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
   (
-    { image, label, description, popoverDropdown, ...others }: ItemProps,
+    { image, label, title, description, popoverDropdown, ...others }: ItemProps,
     ref,
   ) => {
     const [opened, { open, close }] = useDisclosure();
@@ -51,12 +52,13 @@ export const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
           position="bottom-start"
           shadow="md"
           opened={opened}
-          transitionProps={{ transition: 'scale-x', duration: 300 }}
+          transitionProps={{ transition: 'scale-x', duration: 500 }}
         >
           <Popover.Target>
             <CustomTarget
               image={image}
               label={label}
+              title={title}
               description={description}
               open={open}
               close={close}

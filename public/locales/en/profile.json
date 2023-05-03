@@ -25,5 +25,9 @@
   "title_error": "Title must not be empty",
   "description": "Description",
   "description_description": "Short description for your post",
-  "description_error": "Description must not be empty"
+  "description_error": "Description must not be empty",
+  "create_post": "Create post",
+  "preview_post": "Preview post",
+  "post_type_label": "Select post type",
+  "post_type_description": "Later you can filter posts by this type"
 }

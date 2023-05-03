@@ -20,9 +20,8 @@
   "content": "Введите свой контент здесь",
   "insert_image": "Вставить изображение",
   "insert_youtube": "Вставить видео с ютуба",
-  "upload_reject": "",
-  "upload_accept": "",
-  "upload_idle": "",
-  "upload_text": "",
-  "select_file": "Выбрать файл"
+  "upload_reject": "Недействительный файл",
+  "upload_accept": "Действительный файл",
+  "upload_idle": "Загрузите файл",
+  "upload_text": "Перетащите файлы сюда, чтобы загрузить"
 }

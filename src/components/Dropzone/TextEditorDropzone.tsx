@@ -115,7 +115,7 @@ export const TextEditorDropzone: React.FC<TextEditorDropzoneProps> = ({
         whileTap={{ scale: 0.9 }}
         onClick={() => openRef.current?.()}
       >
-        {t('common:select_file')}
+        {t('profile:select_file')}
       </Button>
     </div>
   );

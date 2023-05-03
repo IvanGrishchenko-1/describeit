@@ -25,5 +25,9 @@
   "title_error": "Заголовок не должен быть пустым",
   "description": "Описание",
   "description_description": "Краткое описание вашего поста",
-  "description_error": "Описание не должно быть пустым"
+  "description_error": "Описание не должно быть пустым",
+  "create_post": "Создать пост",
+  "preview_post": "Предварительный просмотр",
+  "post_type_label": "Выберите тип поста",
+  "post_type_description": "Позже вы сможете отфильтровать посты по этому типу"
 }
