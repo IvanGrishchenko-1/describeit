@@ -1,3 +1,5 @@
+import { User } from '@firebase/auth';
+import { doc, setDoc } from '@firebase/firestore';
 import { Button, Text, useMantineTheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
@@ -7,7 +9,7 @@ import { useTranslation } from 'next-i18next';
 import React, { Fragment } from 'react';
 import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
 
-import { auth } from '../../../firebase/ClientApp';
+import { auth, firestore } from '../../../firebase/ClientApp';
 import { error, success } from '../../Notifications/Notifications';
 
 export const GoogleButton: React.FC = () => {
@@ -18,11 +20,20 @@ export const GoogleButton: React.FC = () => {
   });
   const { t } = useTranslation();
 
+  const createUserDoc = async (user: User): Promise<void> => {
+    const userDocRef = doc(firestore, 'users', user.uid);
+    const userToSave = JSON.parse(JSON.stringify(user));
+    await setDoc(userDocRef, userToSave);
+  };
+
   const handleGoogleClick = async (): Promise<void> => {
     const userCredentials = await signInWithGoogle();
-    userCredentials
-      ? notifications.show({ title: 'Success', message: 'Success', ...success })
-      : notifications.show({ title: 'Error', message: 'Error', ...error });
+    if (userCredentials) {
+      notifications.show({ title: 'Success', message: 'Success', ...success });
+      createUserDoc(userCredentials.user);
+    } else {
+      notifications.show({ title: 'Error', message: 'Error', ...error });
+    }
   };
 
   return (

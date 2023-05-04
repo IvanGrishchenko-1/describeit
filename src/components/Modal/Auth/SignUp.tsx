@@ -1,3 +1,5 @@
+import { User } from '@firebase/auth';
+import { doc, setDoc } from '@firebase/firestore';
 import {
   Anchor,
   Button,
@@ -19,7 +21,7 @@ import {
 import { useSetRecoilState } from 'recoil';
 
 import { authModalState } from '../../../atoms/authModalAtom';
-import { auth } from '../../../firebase/ClientApp';
+import { auth, firestore } from '../../../firebase/ClientApp';
 import { error, success } from '../../Notifications/Notifications';
 
 export const SignUp: React.FC = () => {
@@ -48,6 +50,12 @@ export const SignUp: React.FC = () => {
   const theme = useMantineTheme();
   const { t } = useTranslation();
 
+  const createUserDoc = async (user: User): Promise<void> => {
+    const userToSave = JSON.parse(JSON.stringify(user));
+    const userDocRef = doc(firestore, 'users', user.uid);
+    await setDoc(userDocRef, userToSave);
+  };
+
   const handleOnSubmit = async (): Promise<void> => {
     const userCredentials = await createUserWithEmailAndPassword(
       form.values.email,
@@ -56,17 +64,20 @@ export const SignUp: React.FC = () => {
     if (form.values.name) {
       await updateProfile({ displayName: form.values.name });
     }
-    userCredentials
-      ? notifications.show({
-          title: t('notifications:success_signup_title'),
-          message: t('notifications:success_signup_message'),
-          ...success,
-        })
-      : notifications.show({
-          title: t('notifications:oops'),
-          message: t(`notifications:${userError?.code}`),
-          ...error,
-        });
+    if (userCredentials) {
+      notifications.show({
+        title: t('notifications:success_signup_title'),
+        message: t('notifications:success_signup_message'),
+        ...success,
+      });
+      createUserDoc(userCredentials.user);
+    } else {
+      notifications.show({
+        title: t('notifications:oops'),
+        message: t(`notifications:${userError?.code}`),
+        ...error,
+      });
+    }
   };
 
   return (
