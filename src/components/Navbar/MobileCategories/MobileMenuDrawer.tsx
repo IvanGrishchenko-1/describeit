@@ -32,6 +32,14 @@ export const MobileMenuDrawer: React.FC = () => {
   const { classes } = useStyles();
   const theme = useMantineTheme();
 
+  const handleTabClick = (value: string): void => {
+    setTabs(prevValue => ({
+      ...prevValue,
+      defaultValue: value as DefaultValue,
+    }));
+    setOpenMenu(false);
+  };
+
   return (
     <Drawer
       opened={openMenu}
@@ -46,12 +54,7 @@ export const MobileMenuDrawer: React.FC = () => {
             key={`tab-${index}`}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            onClick={() =>
-              setTabs(prevValue => ({
-                ...prevValue,
-                defaultValue: value as DefaultValue,
-              }))
-            }
+            onClick={() => handleTabClick(value)}
           >
             <Flex
               sx={{

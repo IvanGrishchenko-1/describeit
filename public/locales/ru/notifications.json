@@ -14,5 +14,9 @@
   "success_name_change_title": "Вы успешно изменили свое имя",
   "success_password_change_title": "Вы успешно изменили свой пароль",
   "success_password_change_message": "Только вы знаете свой пароль",
-  "success_delete_account_title": "Аккаунт успешно удалён"
+  "success_delete_account_title": "Аккаунт успешно удалён",
+  "success_post_create_title": "Поздравляем!",
+  "success_post_create_message": "Ваш пост создан",
+  "error_post_create_title": "Ошибка при попытке создать пост",
+  "error_post_create_message": ""
 }

@@ -10,6 +10,7 @@ export type DefaultValue =
   | 'music'
   | 'account-settings'
   | 'your-posts'
+  | 'saved-posts'
   | 'liked-posts'
   | 'create-post'
   | 'delete-account';

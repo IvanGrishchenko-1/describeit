@@ -14,5 +14,9 @@
   "success_name_change_title": "You successfully changed your name",
   "success_password_change_title": "You successfully changed your password",
   "success_password_change_message": "Only you know your password",
-  "success_delete_account_title": "Account successfully deleted"
+  "success_delete_account_title": "Account successfully deleted",
+  "success_post_create_title": "Congratulations!",
+  "success_post_create_message": "You're post has been created",
+  "error_post_create_title": "Error while trying to create a post",
+  "error_post_create_message": "Попробуйте ещё раз позже"
 }

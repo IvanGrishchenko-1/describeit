@@ -1,3 +1,4 @@
+import { User } from '@firebase/auth';
 import { Paper, Stack, Tabs } from '@mantine/core';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
@@ -8,8 +9,13 @@ import {
   TemplateValues,
 } from '../TemplateSelect/TemplateSelect';
 import { TextTemplate } from './TextTemplate';
+import { ThumbnaillTemplate } from './ThumbnailTemplate';
 
-export const CreatePost: React.FC = () => {
+type CreatePostProps = {
+  user?: User | null;
+};
+
+export const CreatePost: React.FC<CreatePostProps> = ({ user }) => {
   const template = useRecoilValue(templateAtom);
 
   const renderTemplate = (value: TemplateValues): JSX.Element => {
@@ -17,9 +23,9 @@ export const CreatePost: React.FC = () => {
       case 'thumbnail_text':
         return <div>TT</div>;
       case 'text':
-        return <TextTemplate />;
+        return <TextTemplate user={user} />;
       case 'thumbnail':
-        return <div>Thumbnail</div>;
+        return <ThumbnaillTemplate user={user} />;
     }
   };
 

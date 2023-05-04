@@ -29,5 +29,9 @@
   "create_post": "Create post",
   "preview_post": "Preview post",
   "post_type_label": "Select post type",
-  "post_type_description": "Later you can filter posts by this type"
+  "post_type_description": "Later you can filter posts by this type",
+  "category": "Category",
+  "category_error": "Category must not be empty",
+  "image": "Image",
+  "image_error": "Invalid image"
 }

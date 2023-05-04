@@ -8,6 +8,7 @@ import {
 import { useMediaQuery } from '@mantine/hooks';
 import {
   IconBookmark,
+  IconFolderPlus,
   IconHeart,
   IconPlus,
   IconSettings,
@@ -37,7 +38,8 @@ export const profileTabs: TabProps[] = [
     i18nKey: 'tabs:account-settings',
     icon: <IconSettings />,
   },
-  { value: 'your-posts', i18nKey: 'tabs:your-posts', icon: <IconBookmark /> },
+  { value: 'your-posts', i18nKey: 'tabs:your-posts', icon: <IconFolderPlus /> },
+  { value: 'saved-posts', i18nKey: 'tabs:saved-posts', icon: <IconBookmark /> },
   { value: 'liked-posts', i18nKey: 'tabs:liked-posts', icon: <IconHeart /> },
   { value: 'create-post', i18nKey: 'tabs:create-post', icon: <IconPlus /> },
   {
@@ -52,7 +54,6 @@ const useStyles = createStyles(theme => ({
     marginTop: 80,
     aspectRatio: '960/300',
     width: '100%',
-    height: '100vh',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
     backgroundSize: 'cover',
@@ -88,7 +89,7 @@ const Profile: NextPage<InternalizationStaticProps> = () => {
   return (
     <div className={classes.root}>
       <NextSeo title="Profile" description="Manage your profile" />
-      <Container px="md" fluid>
+      <Container px="md" fluid mih="100vh" pb="xl">
         <motion.div
           initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 1, transition: { delay: 0.1 } }}
@@ -116,7 +117,7 @@ const Profile: NextPage<InternalizationStaticProps> = () => {
               {user ? (
                 <Fragment>
                   <AccountSettings user={user} />
-                  <CreatePost />
+                  <CreatePost user={user} />
                   <DeleteAccount />
                 </Fragment>
               ) : (

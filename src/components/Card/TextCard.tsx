@@ -52,7 +52,7 @@ export const TextCard: React.FC<CardGradientProps> = ({
       <Text size="xl" weight={500} mt="md">
         {title}
       </Text>
-      <Text size="sm" mt="sm" color="dimmed">
+      <Text size="sm" mt={36} color="dimmed" lineClamp={10}>
         {description}
       </Text>
     </Paper>

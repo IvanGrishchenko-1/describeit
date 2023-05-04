@@ -1,64 +1,99 @@
 import { User } from '@firebase/auth';
 import { addDoc, collection, doc } from '@firebase/firestore';
+import { getDownloadURL, ref, uploadBytes } from '@firebase/storage';
 import {
   Button,
   Divider,
+  FileInput,
   Group,
+  Image,
   Input,
+  Loader,
   Radio,
+  rem,
   Stack,
-  Textarea,
   useMantineTheme,
 } from '@mantine/core';
+import { FileWithPath } from '@mantine/dropzone';
 import { useForm } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
+import { IconUpload } from '@tabler/icons-react';
 import { useEditor } from '@tiptap/react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import React, { useState } from 'react';
 
-import { firestore } from '../../../firebase/ClientApp';
+import { firestore, storage } from '../../../firebase/ClientApp';
 import { editorExtensions } from '../../../util/EditorExtensions';
-import { TextTemplateModal } from '../../Modal/Templates/TextTemplateModal';
+import { TextEditorDropzone } from '../../Dropzone/TextEditorDropzone';
+import { ThumbnailTemplateModal } from '../../Modal/Templates/ThumbnailTemplateModal';
 import { error, success } from '../../Notifications/Notifications';
 import { TextEditor } from '../../TextEditor/TextEditor';
+import { radios } from './TextTemplate';
 
-export const radios = ['none', 'anime', 'games', 'movies', 'music'];
-
-type TextTemplateProps = {
+type ThumbnailTemplateProps = {
   user?: User | null;
 };
 
-export const TextTemplate: React.FC<TextTemplateProps> = ({ user }) => {
-  const [loading, setLoading] = useState(false);
+export const ThumbnaillTemplate: React.FC<ThumbnailTemplateProps> = ({
+  user,
+}) => {
   const { t } = useTranslation();
+  const { locale } = useRouter();
   const form = useForm({
-    initialValues: { title: '', description: '', type: 'none' },
+    initialValues: { image: '', title: '', category: '', type: 'none' },
     validate: {
       title: val => (val.length === 0 ? t('profile:title_error') : null),
-      description: val =>
-        val.length === 0 ? t('profile:description_error') : null,
+      category: val => (val.length === 0 ? t('profile:category_error') : null),
+      image: val => (val.length === 0 ? t('profile:image_error') : null),
     },
   });
-  const theme = useMantineTheme();
-  const [opened, { open, close }] = useDisclosure();
-  const { locale } = useRouter();
   const editor = useEditor({
     extensions: editorExtensions(t, locale),
     editable: true,
   });
+  const [opened, { open, close }] = useDisclosure();
+  const theme = useMantineTheme();
+  const [loading, setLoading] = useState(false);
+  const [fileLoading, setFileLoading] = useState(false);
+  const [imageUrl, setImageUrl] = useState('');
+  const [value, setValue] = useState<FileWithPath | null>(null);
 
-  const handleSubmit = async (): Promise<void> => {
+  const handleFileDrop = async (files: FileWithPath[]): Promise<void> => {
+    setFileLoading(true);
+    const file = files[0];
+    const imageRef = ref(storage, `posts/${user?.uid}/${file.name}`);
+    await uploadBytes(imageRef, file);
+    const downloadUrl = await getDownloadURL(imageRef);
+    if (downloadUrl) {
+      notifications.show({
+        title: t('notifications:success_image_upload_title'),
+        message: t('notifications:success_image_upload_message'),
+        ...success,
+      });
+      setImageUrl(downloadUrl);
+      form.setFieldValue('image', downloadUrl);
+    } else
+      notifications.show({
+        title: t('notifications:oops'),
+        message: t('notifications:something_went_wrong'),
+        ...error,
+      });
+    setFileLoading(false);
+  };
+
+  const handleOnSubmit = async (): Promise<void> => {
     setLoading(true);
     const collectionRef = collection(firestore, 'posts');
     const userDocRef = doc(firestore, 'users', `${user?.uid}`);
     const post = {
-      template: 'text',
-      title: form.values.title,
-      description: form.values.description,
+      template: 'thumbnail',
       post_type: form.values.type,
+      image: form.values.image,
+      title: form.values.title,
+      category: form.values.category,
       content: editor?.getJSON(),
       user: userDocRef,
     };
@@ -78,7 +113,7 @@ export const TextTemplate: React.FC<TextTemplateProps> = ({ user }) => {
   };
 
   return (
-    <form onSubmit={form.onSubmit(handleSubmit)}>
+    <form onSubmit={form.onSubmit(handleOnSubmit)}>
       <Stack justify="flex-start" spacing="xl">
         <Input.Wrapper
           id="title-input"
@@ -96,17 +131,62 @@ export const TextTemplate: React.FC<TextTemplateProps> = ({ user }) => {
           />
         </Input.Wrapper>
 
-        <Textarea
-          placeholder={t('profile:description') as string}
-          label={t('profile:description')}
-          description={t('profile:description_description')}
+        <Input.Wrapper
+          id="category-input"
           withAsterisk
-          value={form.values.description}
-          onChange={event =>
-            form.setFieldValue('description', event.currentTarget.value)
-          }
-          error={form.errors.description}
-        />
+          label={t('profile:category')}
+          error={form.errors.category}
+        >
+          <Input
+            id="category-input"
+            placeholder={t('profile:category')}
+            value={form.values.category}
+            onChange={event =>
+              form.setFieldValue('category', event.currentTarget.value)
+            }
+          />
+        </Input.Wrapper>
+
+        <Input.Wrapper
+          id="image-input"
+          withAsterisk
+          label={t('profile:image')}
+          error={form.errors.image}
+        >
+          {imageUrl ? (
+            <Group spacing="xl">
+              {fileLoading ? (
+                <Loader
+                  color={theme.colorScheme === 'dark' ? 'orange' : 'indigo'}
+                />
+              ) : (
+                <Image
+                  src={imageUrl}
+                  alt="thumbnail"
+                  width={320}
+                  height={380}
+                />
+              )}
+              <FileInput
+                w={300}
+                label={t('profile:choose_different_photo')}
+                placeholder={t('profile:select_file') as string}
+                variant="filled"
+                icon={<IconUpload size={rem(14)} />}
+                accept="image/png,image/jpeg"
+                value={value}
+                onChange={payload =>
+                  payload ? handleFileDrop([payload]) : setValue(payload)
+                }
+              />
+            </Group>
+          ) : (
+            <TextEditorDropzone
+              handleOnDrop={handleFileDrop}
+              loading={fileLoading}
+            />
+          )}
+        </Input.Wrapper>
 
         <Radio.Group
           value={form.values.type}
@@ -160,11 +240,13 @@ export const TextTemplate: React.FC<TextTemplateProps> = ({ user }) => {
           </Button>
         </Group>
       </Stack>
-      <TextTemplateModal
+
+      <ThumbnailTemplateModal
         opened={opened}
         close={close}
+        image={form.values.image}
         title={form.values.title}
-        description={form.values.description}
+        category={form.values.category}
       />
     </form>
   );

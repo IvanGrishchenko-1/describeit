@@ -1,24 +1,12 @@
 import { useMantineTheme } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { Link, RichTextEditor } from '@mantine/tiptap';
+import { RichTextEditor } from '@mantine/tiptap';
 import {
   IconBrandYoutube,
   IconColorPicker,
   IconPhoto,
 } from '@tabler/icons-react';
-import { Color } from '@tiptap/extension-color';
-import { Highlight } from '@tiptap/extension-highlight';
-import { Image } from '@tiptap/extension-image';
-import { Placeholder } from '@tiptap/extension-placeholder';
-import { Subscript } from '@tiptap/extension-subscript';
-import { Superscript } from '@tiptap/extension-superscript';
-import { TextAlign } from '@tiptap/extension-text-align';
-import { TextStyle } from '@tiptap/extension-text-style';
-import { Underline } from '@tiptap/extension-underline';
-import { Youtube } from '@tiptap/extension-youtube';
-import { BubbleMenu, useEditor } from '@tiptap/react';
-import { StarterKit } from '@tiptap/starter-kit';
-import { useRouter } from 'next/router';
+import { BubbleMenu, Editor } from '@tiptap/react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
@@ -26,29 +14,11 @@ import { ImageModal } from '../Modal/TextEditor/ImageModal';
 import { YoutubeModal } from '../Modal/TextEditor/YoutubeModal';
 
 type TextEditorProps = {
-  editable: boolean;
+  editor: Editor | null;
 };
 
-export const TextEditor: React.FC<TextEditorProps> = ({ editable }) => {
+export const TextEditor: React.FC<TextEditorProps> = ({ editor }) => {
   const { t } = useTranslation();
-  const { locale } = useRouter();
-  const editor = useEditor({
-    extensions: [
-      StarterKit,
-      Underline,
-      Link,
-      Highlight,
-      Color,
-      TextStyle,
-      Subscript,
-      Superscript,
-      Image.configure({ allowBase64: true }),
-      Youtube.configure({ disableKBcontrols: true, interfaceLanguage: locale }),
-      TextAlign.configure({ types: ['heading', 'paragraph'] }),
-      Placeholder.configure({ placeholder: t('common:content') as string }),
-    ],
-    editable,
-  });
   const theme = useMantineTheme();
   const [imageOpened, imageActions] = useDisclosure();
   const [youtubeOpened, youtubeActions] = useDisclosure();

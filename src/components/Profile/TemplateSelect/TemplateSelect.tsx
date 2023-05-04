@@ -29,7 +29,6 @@ export const TemplateSelect: React.FC = () => {
       label={t('profile:select_template')}
       placeholder={t('profile:pick_one') as string}
       itemComponent={SelectItem}
-      initiallyOpened
       value={template}
       onChange={setTemplate}
       data={data}
